@@ -35,5 +35,13 @@ public class Matrix2DTest  extends TestCase {
 			}
 		}
 	}
+	
+	public void testCopy() {
+		//TODO
+	}
+	
+	public void testToArray() {
+		//TODO
+	}
 }
 	
