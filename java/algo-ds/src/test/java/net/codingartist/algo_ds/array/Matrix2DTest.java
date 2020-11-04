@@ -4,7 +4,6 @@ package net.codingartist.algo_ds.array;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import net.codingartist.algo_ds.array.Matrix2D;
 
 
 public class Matrix2DTest  extends TestCase {
