@@ -38,6 +38,18 @@ public class Matrix2D<E> {
 		array[columns*row + column] = value;
 	}
 	
+	public void rotate() {
+		//TODO
+	}
+	
+	public void transpose() {
+		//TODO
+	}
+	
+	public void flip() {
+		//TODO
+	}
+	
 	@SuppressWarnings("unchecked")
 	public Matrix2D<E> copy() {
 		Matrix2D<E> cloned = new Matrix2D<>(rows, columns);
@@ -48,6 +60,11 @@ public class Matrix2D<E> {
 	@SuppressWarnings("unchecked")
 	public E[] toArray() {
 		return (E[])Arrays.copyOf(array, rows * columns);
+	}
+	
+	public E[][] to2DArray() {
+		//TODO
+		return null;
 	}
 	
 	protected void boundaryCheck(int row, int column){

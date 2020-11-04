@@ -43,5 +43,21 @@ public class Matrix2DTest  extends TestCase {
 	public void testToArray() {
 		//TODO
 	}
+	
+	public void testTo2DArray() {
+		//TODO
+	}
+	
+	public void testTranspose() {
+		//TODO
+	}
+	
+	public void testRotate() {
+		//TODO
+	}
+	
+	public void testFlip() {
+		//TODO
+	}
 }
 	
