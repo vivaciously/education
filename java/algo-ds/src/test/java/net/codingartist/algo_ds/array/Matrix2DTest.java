@@ -1,4 +1,4 @@
-package net.codingartist.test.algo_ds.array;
+package net.codingartist.algo_ds.array;
 
 
 import junit.framework.Test;
