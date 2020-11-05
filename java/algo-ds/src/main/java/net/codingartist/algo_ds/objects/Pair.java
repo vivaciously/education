@@ -1,7 +1,12 @@
 package net.codingartist.algo_ds.objects;
 
-public class Pair<K, V> {
+import java.io.Serializable;
+public class Pair<K, V> implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	protected K first;
 	protected V second;
 	
