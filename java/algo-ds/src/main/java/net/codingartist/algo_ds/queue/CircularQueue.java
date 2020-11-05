@@ -10,17 +10,16 @@ import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
 import java.util.stream.Stream.Builder;
-import net.codingartist.algo_ds.utils.AlgoDSUtils;
 
 
 public class CircularQueue<T> {
 
-	private static final int DEFUALT_CAPACITY = 10;
-	private final int capacity;
-	private Object[] elements;
-	private int insertIndex = 0;
-	private int removeIndex = 0;
-	private int size = 0;
+	protected static final int DEFUALT_CAPACITY = 10;
+	protected final int capacity;
+	protected Object[] elements;
+	protected int insertIndex = 0;
+	protected int removeIndex = 0;
+	protected int size = 0;
 	
 	public CircularQueue(int capacity) {
 		this.capacity = Math.max(capacity, 2);
@@ -88,8 +87,8 @@ public class CircularQueue<T> {
 			throw new IllegalArgumentException("Given index is invalid. index: " + index);
 		}
 		var peekIndex = (removeIndex + index) % capacity;
-		//return (T)elements[peekIndex];
-		return (T)AlgoDSUtils.deepCopy(elements[peekIndex]);
+		return (T)elements[peekIndex];
+		//return (T)AlgoDSUtils.deepCopy(elements[peekIndex]);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -97,9 +96,8 @@ public class CircularQueue<T> {
 		if(size == 0) {
 			throw new EmptyQueueException("The queue is empty.");
 		}
-		
-		//return (T)elements[removeIndex % capacity];
-		return (T)AlgoDSUtils.deepCopy(elements[removeIndex % capacity]);
+		return (T)elements[removeIndex % capacity];
+		//return (T)AlgoDSUtils.deepCopy(elements[removeIndex % capacity]);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -107,16 +105,17 @@ public class CircularQueue<T> {
 		if(startIndex >= size || startIndex < 0 || startIndex > capacity) {
 			throw new IllegalArgumentException("Given index is invalid. startIndex: " + startIndex);
 		}
-		List<T> tempList = new ArrayList<>();
+		List<T> results = new ArrayList<>();
 		for(int i=0; i <capacity; i++) {
 			int peekIndex = (removeIndex + startIndex + i) % capacity;
 			var element = (T)elements[peekIndex];
 			if(element != null) {
-				tempList.add((T)element);
+				results.add((T)element);
 			}
 		}
+		return results;
 		//return an immutable list 
-		return List.of((T[])(tempList.toArray()));
+		//return List.of((T[])(tempList.toArray()));
 	}
 	
 	public List<T> removeAllFrom(int startIndex) {
@@ -165,8 +164,8 @@ public class CircularQueue<T> {
 	
 	public Stream<T> stream(int index) {
 		Builder<T> builder = Stream.builder();
-		List<T> immutableList = this.peekAllFrom(index);
-		for(T value: immutableList) {
+		List<T> list = this.peekAllFrom(index);
+		for(T value: list) {
 			builder.add(value);
 		}
 		return builder.build();
@@ -174,8 +173,8 @@ public class CircularQueue<T> {
 	
 	public IntStream intStream(int index, Function<? super T, Integer> mapper) {
 		IntStream.Builder builder = IntStream.builder();
-		List<T> immutableList = this.peekAllFrom(index);
-		for(T value: immutableList) {
+		List<T> list = this.peekAllFrom(index);
+		for(T value: list) {
 			builder.add(mapper.apply(value));
 		}
 		return builder.build();
@@ -183,8 +182,8 @@ public class CircularQueue<T> {
 	
 	public LongStream longStream(int index, Function<? super T, Long> mapper) {
 		LongStream.Builder builder = LongStream.builder();
-		List<T> immutableList = this.peekAllFrom(index);
-		for(T value: immutableList) {
+		List<T> list = this.peekAllFrom(index);
+		for(T value: list) {
 			builder.add(mapper.apply(value));
 		}
 		return builder.build();
@@ -192,8 +191,8 @@ public class CircularQueue<T> {
 	
 	public DoubleStream doubleStream(int index, Function<? super T, Double> mapper) {
 		DoubleStream.Builder builder = DoubleStream.builder();
-		List<T> immutableList = this.peekAllFrom(index);
-		for(T value: immutableList) {
+		List<T> list = this.peekAllFrom(index);
+		for(T value: list) {
 			builder.add(mapper.apply(value));
 		}
 		return builder.build();

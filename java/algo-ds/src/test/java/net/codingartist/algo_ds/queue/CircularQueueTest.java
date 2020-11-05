@@ -7,8 +7,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import net.codingartist.algo_ds.objects.Pair;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -165,13 +163,11 @@ public class CircularQueueTest {
 		for(int i=0; i< 10; i++) {
 			queue.enqueue(Integer.valueOf(i));
 		}
-		List<Integer> immutableList = queue.peekAllFrom(0);
+		List<Integer> list = queue.peekAllFrom(0);
 		assertTrue(queue.size() == 10);
-		assertTrue(queue.size() == immutableList.size());
-		assertThrows(UnsupportedOperationException.class, 
-				() -> immutableList.remove(0));
+		assertTrue(queue.size() == list.size());
 		for(int i=0; i<10; i++) {
-			assertTrue(immutableList.get(i).intValue() == i);
+			assertTrue(list.get(i).intValue() == i);
 		}
 		queue.removeAll();
 		queue.enqueue(Integer.valueOf(3));//index 0
@@ -197,13 +193,13 @@ public class CircularQueueTest {
 		assertTrue(queue.size() == 5);
 		
 		assertTrue(queue.dequeue().intValue() == 3);
-		List<Integer> yetAnotherImmutableList = queue.peekAllFrom(2);
-		assertTrue(yetAnotherImmutableList.size() == 4);
+		List<Integer> yetAnotherList = queue.peekAllFrom(2);
+		assertTrue(yetAnotherList.size() == 4);
 		
-		assertTrue(yetAnotherImmutableList.get(0).intValue() == 1);
-		assertTrue(yetAnotherImmutableList.get(1).intValue() == 2);
-		assertTrue(yetAnotherImmutableList.get(2).intValue() == 4);
-		assertTrue(yetAnotherImmutableList.get(3).intValue() == 0);
+		assertTrue(yetAnotherList.get(0).intValue() == 1);
+		assertTrue(yetAnotherList.get(1).intValue() == 2);
+		assertTrue(yetAnotherList.get(2).intValue() == 4);
+		assertTrue(yetAnotherList.get(3).intValue() == 0);
 		
 	}
 	
@@ -241,17 +237,6 @@ public class CircularQueueTest {
 			queue.peekAt(5);
 		 });
 	}
-	
-
-	@Test
-	public void testPeekAtImmutability() {
-		CircularQueue<Pair<String, String>> pairQueue = new CircularQueue<>(1);
-		Pair<String, String> p1 = new Pair<>("test", "test2");
-		pairQueue.enqueue(p1);
-		pairQueue.peek().setFirst("678");
-		assertTrue(pairQueue.peek().getFirst().equals("test"));
-	}
-	
 	
 	
 	@Test
