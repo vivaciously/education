@@ -7,6 +7,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+import net.codingartist.algo_ds.objects.Pair;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -238,8 +240,19 @@ public class CircularQueueTest {
 		Assertions.assertThrows(IllegalArgumentException.class, () -> {
 			queue.peekAt(5);
 		 });
-		
 	}
+	
+
+	@Test
+	public void testPeekAtImmutability() {
+		CircularQueue<Pair<String, String>> pairQueue = new CircularQueue<>(1);
+		Pair<String, String> p1 = new Pair<>("test", "test2");
+		pairQueue.enqueue(p1);
+		pairQueue.peek().setFirst("678");
+		assertTrue(pairQueue.peek().getFirst().equals("test"));
+	}
+	
+	
 	
 	@Test
 	public void testCapacity() {

@@ -10,6 +10,8 @@ import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import java.util.stream.Stream;
 import java.util.stream.Stream.Builder;
+import net.codingartist.algo_ds.utils.AlgoDSUtils;
+
 
 public class CircularQueue<T> {
 
@@ -86,8 +88,8 @@ public class CircularQueue<T> {
 			throw new IllegalArgumentException("Given index is invalid. index: " + index);
 		}
 		var peekIndex = (removeIndex + index) % capacity;
-		//TODO cloned copy to enforce immutability;
-		return (T)elements[peekIndex];
+		//return (T)elements[peekIndex];
+		return (T)AlgoDSUtils.deepCopy(elements[peekIndex]);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -95,8 +97,9 @@ public class CircularQueue<T> {
 		if(size == 0) {
 			throw new EmptyQueueException("The queue is empty.");
 		}
-		//TODO cloned copy to enforce immutability;
-		return (T)elements[removeIndex % capacity];
+		
+		//return (T)elements[removeIndex % capacity];
+		return (T)AlgoDSUtils.deepCopy(elements[removeIndex % capacity]);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -195,7 +198,6 @@ public class CircularQueue<T> {
 		}
 		return builder.build();
 	}
-	
 	
 	
 	//static methods
