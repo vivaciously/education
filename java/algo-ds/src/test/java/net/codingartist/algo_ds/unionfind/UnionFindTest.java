@@ -3,7 +3,7 @@ package net.codingartist.algo_ds.unionfind;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions;
 
 
@@ -45,12 +45,15 @@ public class UnionFindTest {
 		assertFalse(uf.find(0, 4));
 	}
 	
-	@Test(expected = Test.None.class /* no exception expected */) 
+	@Test
 	public void testValidIndices() {
-		UnionFind uf = new UnionFind(2);
-		assertTrue(uf.union(0, 1));
-		assertFalse(uf.union(0, 1));
-		assertTrue(uf.find(0, 1));
+		Assertions.assertDoesNotThrow(() -> {
+			UnionFind uf = new UnionFind(2);
+			assertTrue(uf.union(0, 1));
+			assertFalse(uf.union(0, 1));
+			assertTrue(uf.find(0, 1));
+		});
+		
 	}
 	
 	@Test
