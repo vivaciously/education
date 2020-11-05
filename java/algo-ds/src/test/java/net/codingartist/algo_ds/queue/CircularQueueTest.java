@@ -1,9 +1,17 @@
 package net.codingartist.algo_ds.queue;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import org.junit.jupiter.api.Test;
+
+import net.codingartist.algo_ds.unionfind.UnionFind;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,28 +20,28 @@ import java.util.stream.LongStream;
 import java.util.stream.DoubleStream;
 import java.util.function.UnaryOperator;
 
-public class CircularQueueTest extends TestCase {
+public class CircularQueueTest {
 
 	protected CircularQueue<Integer> queue;
-	public CircularQueueTest(String testName){
-		super(testName);
-		setup();
-	}
 	
-	public static Test suite(){
-	    return new TestSuite( CircularQueueTest.class );
-	}
-	
-	public void setup(){
+	@BeforeEach
+	void init() {
 		queue = new CircularQueue<>();
 	}
 	
+	@AfterEach
+	void tearDown() {
+		queue = null;
+	}
+	
+	@Test
 	public void testFrom() {
 		List<Integer> list = IntStream.range(1, 11).boxed().collect(Collectors.toList());
 		CircularQueue<Integer> queue = CircularQueue.from(list);
 		assertTrue(queue.stream().reduce(0, (i, j) -> i + j) == 55);
 	}
 	
+	@Test
 	public void testIntStream() {
 		IntStream.range(1, 11).forEach((i) -> {
 			queue.enqueue(Integer.valueOf(i));
@@ -42,6 +50,7 @@ public class CircularQueueTest extends TestCase {
 		assertTrue(intStream.sum() == 55);
 	}
 	
+	@Test
 	public void testLongStream() {
 		IntStream.range(1, 11).forEach((i) -> {
 			queue.enqueue(Integer.valueOf(i));
@@ -50,6 +59,7 @@ public class CircularQueueTest extends TestCase {
 		assertTrue(longStream.sum() == 55);
 	}
 	
+	@Test
 	public void testDoubleStream() {
 		IntStream.range(1, 11).forEach((i) -> {
 			queue.enqueue(Integer.valueOf(i));
@@ -58,6 +68,7 @@ public class CircularQueueTest extends TestCase {
 		assertTrue(ds.sum() == 55.0);
 	}
 	
+	@Test
 	public void testClear() {
 		IntStream.range(0, 10).forEach((i) -> {
 			queue.enqueue(Integer.valueOf(i));
@@ -70,6 +81,7 @@ public class CircularQueueTest extends TestCase {
 		assertTrue(queue.isEmpty());
 	}
 	
+	@Test
 	public void testStreamWithoutIndex() {
 		for(int i=0; i<10; i++) {
 			queue.enqueue(Integer.valueOf(i));
@@ -85,6 +97,7 @@ public class CircularQueueTest extends TestCase {
 		}
 	}
 	
+	@Test
 	public void testStreamWithIndex() {
 		for(int i=0; i<10; i++) {
 			queue.enqueue(Integer.valueOf(i));
@@ -102,6 +115,7 @@ public class CircularQueueTest extends TestCase {
 		}
 	}
 	
+	@Test
 	public void testRemoveAllElementsFrom() {
 		for(int i=0; i< 10; i++) {
 			queue.enqueue(Integer.valueOf(i));
@@ -146,6 +160,7 @@ public class CircularQueueTest extends TestCase {
 		assertTrue(yetAnotherList.get(3).intValue() == 0);
 	}
 	
+	@Test
 	public void testPeekAllElementsFrom() {
 		for(int i=0; i< 10; i++) {
 			queue.enqueue(Integer.valueOf(i));
@@ -192,6 +207,7 @@ public class CircularQueueTest extends TestCase {
 		
 	}
 	
+	@Test
 	public void testPeekAt() {
 		for(int i=0; i< 10; i++) {
 			queue.enqueue(Integer.valueOf(i));
@@ -209,18 +225,30 @@ public class CircularQueueTest extends TestCase {
 		queue.enqueue(Integer.valueOf(2));//index 4
 		assertTrue(queue.size() == 5);
 		assertTrue(queue.peekAt(2).intValue() == 0);
-		assertTrue(queue.peekAt(-1) == null);
-		assertTrue(queue.peekAt(11) == null);
-		assertTrue(queue.peekAt(10) == null);
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {
+			queue.peekAt(-1);
+		 });
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {
+			queue.peekAt(11);
+		 });
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {
+			queue.peekAt(10);
+		 });
+		
 		assertTrue(queue.peekAt(4).intValue() == 2);
 		assertTrue(queue.peekAt(1).intValue() == 4);
-		assertTrue(queue.peekAt(5) == null);
+		Assertions.assertThrows(IllegalArgumentException.class, () -> {
+			queue.peekAt(5);
+		 });
+		
 	}
 	
+	@Test
 	public void testCapacity() {
 		assertTrue(queue.capacity() == 10);
 	}
 	
+	@Test
 	public void removeAllToListTest() {
 		for(int i=0; i< 10; i++) {
 			queue.enqueue(Integer.valueOf(i));
@@ -242,11 +270,12 @@ public class CircularQueueTest extends TestCase {
 		assertTrue(queue.capacity() == 10);
 		list = queue.removeAllToList();
 		assertTrue(list.size() == 10);
-		for(int i=10; i>0; i--) {
-			assertTrue(list.get(i).intValue() == i);
+		for(int i=0; i<10; i++) {
+			assertTrue(list.get(i).intValue() == 10 -i);
 		}
 	}
 	
+	@Test
 	public void testIsFull() {
 		queue.enqueue(1);
 		queue.enqueue(2);
@@ -264,6 +293,7 @@ public class CircularQueueTest extends TestCase {
 		assertEquals(thrown.getMessage(), "The CircularQueue is Full.");
 	}
 	
+	@Test
 	public void testRemoveAll() {
 		queue.enqueue(5);
 		assertTrue(queue.peek().intValue() == 5);
@@ -274,8 +304,11 @@ public class CircularQueueTest extends TestCase {
 		assertTrue(queue.size() == 0);
 	}
 	
+	@Test
 	public void testPeek() {
-		assertTrue(queue.peek() == null);
+		Assertions.assertThrows(EmptyQueueException.class, () -> {
+			queue.peek();
+		 });
 		queue.enqueue(2);
 		assertTrue(queue.peek().intValue() == 2);
 		assertTrue(queue.dequeue().intValue() == 2);
@@ -289,6 +322,7 @@ public class CircularQueueTest extends TestCase {
 		assertTrue(queue.peek().intValue() == 2);
 	}
 	
+	@Test
 	public void testDequeue() {
 		queue.enqueue(Integer.valueOf(3));//index 0
 		queue.enqueue(Integer.valueOf(4));//index 1
@@ -353,8 +387,12 @@ public class CircularQueueTest extends TestCase {
 		
 	}
 	
+	@Test
 	public void testIsEmpty() {
-		queue.enqueue(null);
+		Assertions.assertThrows(NullPointerException.class, () -> {
+			queue.enqueue(null);
+		 });
+		
 		assertTrue(queue.isEmpty());
 		queue.enqueue(1);
 		assertFalse(queue.isEmpty());
@@ -362,6 +400,7 @@ public class CircularQueueTest extends TestCase {
 		assertTrue(queue.isEmpty());
 	}
 	
+	@Test
 	public void testSize() {
 		assertTrue(queue.size() == 0);
 		queue.enqueue(1);

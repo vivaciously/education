@@ -54,7 +54,7 @@ public class CircularQueue<T> {
 	
 	public T dequeue() {
 		if(this.size == 0) {
-			return null;
+			throw new EmptyQueueException("The queue is empty.");
 		}
 		int index = removeIndex % capacity;
 		@SuppressWarnings("unchecked")
@@ -83,7 +83,7 @@ public class CircularQueue<T> {
 	@SuppressWarnings("unchecked")
 	public T peekAt(int index) {
 		if(index >= size || index < 0 || index > capacity) {
-			return null;
+			throw new IllegalArgumentException("Given index is invalid. index: " + index);
 		}
 		var peekIndex = (removeIndex + index) % capacity;
 		//TODO cloned copy to enforce immutability;
@@ -93,7 +93,7 @@ public class CircularQueue<T> {
 	@SuppressWarnings("unchecked")
 	public T peek() {
 		if(size == 0) {
-			return null;
+			throw new EmptyQueueException("The queue is empty.");
 		}
 		//TODO cloned copy to enforce immutability;
 		return (T)elements[removeIndex % capacity];
@@ -102,7 +102,7 @@ public class CircularQueue<T> {
 	@SuppressWarnings("unchecked")
 	public List<T> peekAllFrom(int startIndex) {
 		if(startIndex >= size || startIndex < 0 || startIndex > capacity) {
-			return null;
+			throw new IllegalArgumentException("Given index is invalid. startIndex: " + startIndex);
 		}
 		List<T> tempList = new ArrayList<>();
 		for(int i=0; i <capacity; i++) {
@@ -118,7 +118,7 @@ public class CircularQueue<T> {
 	
 	public List<T> removeAllFrom(int startIndex) {
 		if(startIndex >= size || startIndex < 0 || startIndex > capacity) {
-			return null;
+			throw new IllegalArgumentException("Given index is invalid. startIndex: " + startIndex);
 		}
 		var list = new ArrayList<T>();
 		for(int i=0; i <capacity; i++) {
@@ -138,15 +138,16 @@ public class CircularQueue<T> {
 	
 	
 	public void enqueue(T element) {
-		if(element != null) {
-			if(size < capacity) {
-				size++;
-				int index = insertIndex % capacity;
-				elements[index] = element;
-				insertIndex = (insertIndex + 1) % capacity;
-			} else {
-				throw new IllegalArgumentException("The CircularQueue is Full.");
-			}
+		if(element == null) {
+			throw new NullPointerException("The element passsed to enqueue is null");
+		}
+		if(size < capacity) {
+			size++;
+			int index = insertIndex % capacity;
+			elements[index] = element;
+			insertIndex = (insertIndex + 1) % capacity;
+		} else {
+			throw new IllegalArgumentException("The CircularQueue is Full.");
 		}
 	}
 	
