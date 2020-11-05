@@ -15,7 +15,6 @@ public class TrieTest {
 	@BeforeEach
 	public void init() {
 		trie = new Trie();
-		System.out.println("called.");
 	}
 	
 	@AfterEach
@@ -61,7 +60,7 @@ public class TrieTest {
 		trie.addWord("app");
 		List<String> words = trie.findWordsWithPrefix("appl");
 		for(String word : words){
-			System.out.println(word);
+			assertTrue(word.equals("apple"));
 		}
 	}
 	
