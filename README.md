@@ -15,7 +15,11 @@ As mentioned above, currently the repository contains data structure / algorithm
 
 ### Project Structure ###
 
+
 <pre>
-|-- src/main/java
-|-- src/test/java                      
+java/algo-ds
+	|-- src/main/java
+	|-- src/test/java  
+	|-- src/resources     
+	pom.xml               
 </pre>
