@@ -11,7 +11,7 @@ As mentioned above, currently the repository contains data structure / algorithm
 
 * Eclipse version: 2020-03(4.15.0) with JDK10 on Ubuntu 20.04 and MacOS 10.15.7
 * Maven 3.6.1
-* Unit 5
+* JUnit 5
 
 ### Project Structure ###
 
