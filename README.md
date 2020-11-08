@@ -18,5 +18,4 @@ As mentioned above, currently the repository contains data structure / algorithm
 <pre>
 |-- src/main/java
 |-- src/test/java                      
-
 </pre>
