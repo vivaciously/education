@@ -9,7 +9,7 @@ As mentioned above, currently the repository contains data structure / algorithm
 
 ### Develop / Test Environment ###
 
-* Eclipse version: 2020-03(4.15.0) with JDK10 on Ubuntu 20.04 and MacOS 10.15.7
+* Eclipse version: 2020-03(4.15.0) with openJDK14.01 on Ubuntu 20.04 and MacOS 10.15.7
 * Maven 3.6.1
 * JUnit 5
 
