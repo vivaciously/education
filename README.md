@@ -1,6 +1,6 @@
 # README #
 
-The repository contains <ins>source codes for my educational purpose only.</ins> Should you find anything wrong or better way of implementation, please kindly let me know.
+The repository contains <ins>source codes for my educational purpose only.</ins> Should you find anything wrong, better way of implementation or any suggestions, please kindly let me know.
 
 
 ### What is this repository for? ###
