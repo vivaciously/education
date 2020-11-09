@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
-
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,6 +16,8 @@ import java.util.stream.IntStream;
 import java.util.stream.LongStream;
 import java.util.stream.DoubleStream;
 import java.util.function.UnaryOperator;
+
+import net.codingartist.algo_ds.exceptions.EmptyQueueException;
 
 public class CircularQueueTest {
 
