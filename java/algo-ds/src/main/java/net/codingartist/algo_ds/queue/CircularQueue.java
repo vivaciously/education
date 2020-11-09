@@ -11,7 +11,7 @@ import java.util.stream.LongStream;
 import java.util.stream.Stream;
 import java.util.stream.Stream.Builder;
 
-import net.codingartist.algo_ds.exceptions.EmptyQueueException;
+import net.codingartist.algo_ds.exceptions.EmptyDataStructureException;
 
 
 public class CircularQueue<T> {
@@ -57,7 +57,7 @@ public class CircularQueue<T> {
 	
 	public T dequeue() {
 		if(this.size == 0) {
-			throw new EmptyQueueException("The queue is empty.");
+			throw new EmptyDataStructureException("The queue is empty.");
 		}
 		int index = removeIndex % capacity;
 		@SuppressWarnings("unchecked")
@@ -96,7 +96,7 @@ public class CircularQueue<T> {
 	@SuppressWarnings("unchecked")
 	public T peek() {
 		if(size == 0) {
-			throw new EmptyQueueException("The queue is empty.");
+			throw new EmptyDataStructureException("The queue is empty.");
 		}
 		return (T)elements[removeIndex % capacity];
 		//return (T)AlgoDSUtils.deepCopy(elements[removeIndex % capacity]);
