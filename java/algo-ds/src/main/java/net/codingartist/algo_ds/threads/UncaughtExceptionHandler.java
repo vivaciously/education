@@ -32,7 +32,7 @@ public class UncaughtExceptionHandler implements Thread.UncaughtExceptionHandler
 			sb.append("\n      at ");
 			sb.append(st);
 		});
-		logger.warn(sb.toString());
+		logger.fatal(sb.toString());
 	}
 
 }
