@@ -1,6 +1,7 @@
 package net.codingartist.algo_ds.string;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class StringUtils {
@@ -34,6 +35,9 @@ public class StringUtils {
 	}
 	
 	public static List<String> permutate(String str){
+		if(str == null || str.length() == 0) {
+			return Collections.emptyList();
+		}
 		var results = new ArrayList<String>();
 		permutate("", str, results);
 		return results;

@@ -15,6 +15,10 @@ public class StringUtilsTest {
 	public void testIsPermutation(){
 		assertTrue(StringUtils.isPermutation("abcd", "acbd"));
 		assertFalse(StringUtils.isPermutation("abcd", "acfd"));
+		assertFalse(StringUtils.isPermutation("", "acfd"));
+		assertTrue(StringUtils.isPermutation("", ""));
+		assertFalse(StringUtils.isPermutation(null, "acbd"));
+		assertFalse(StringUtils.isPermutation("abcd", null));
 	}
 	
 	@Test
@@ -28,5 +32,10 @@ public class StringUtilsTest {
 		for(var result : results) {
 			assertTrue(set.contains(result));
 		}
+		
+		results = StringUtils.permutate(null);
+		assertTrue(results.isEmpty());
+		results = StringUtils.permutate("");
+		assertTrue(results.isEmpty());
 	}
 }
