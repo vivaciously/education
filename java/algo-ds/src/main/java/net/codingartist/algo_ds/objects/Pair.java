@@ -55,5 +55,11 @@ public class Pair<K, V> implements Serializable {
 		return result;
 	}
 	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("[first: ").append(first).append(" second: ").append(second).append("]");
+		return sb.toString();
+	}
 	
 }
