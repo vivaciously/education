@@ -11,6 +11,8 @@ import java.util.stream.LongStream;
 import java.util.stream.Stream;
 import java.util.stream.Stream.Builder;
 
+import net.codingartist.algo_ds.exceptions.EmptyQueueException;
+
 
 public class CircularQueue<T> {
 

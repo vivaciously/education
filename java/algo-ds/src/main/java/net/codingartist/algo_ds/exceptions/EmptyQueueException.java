@@ -1,4 +1,4 @@
-package net.codingartist.algo_ds.queue;
+package net.codingartist.algo_ds.exceptions;
 
 public class EmptyQueueException extends RuntimeException {
 

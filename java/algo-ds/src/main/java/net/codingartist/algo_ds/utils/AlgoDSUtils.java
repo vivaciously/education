@@ -36,17 +36,37 @@ public class AlgoDSUtils {
 	}
 	
 	public static Object deepCopy(Object original) {
-	   try {
-		     ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-		     ObjectOutputStream outputStrm = new ObjectOutputStream(outputStream);
-		     outputStrm.writeObject(original);
-		     ByteArrayInputStream inputStream = new ByteArrayInputStream(outputStream.toByteArray());
-		     ObjectInputStream objInputStream = new ObjectInputStream(inputStream);
-		     return objInputStream.readObject();
+		   ByteArrayOutputStream outputStream = null;
+		   ObjectOutputStream objOutputStream = null;
+		   ByteArrayInputStream inputStream = null;
+		   ObjectInputStream objInputStream = null;
+		   try {
+			     outputStream = new ByteArrayOutputStream();
+			     objOutputStream = new ObjectOutputStream(outputStream);
+			     objOutputStream.writeObject(original);
+			     inputStream = new ByteArrayInputStream(outputStream.toByteArray());
+			     objInputStream = new ObjectInputStream(inputStream);
+			     return objInputStream.readObject();
+		   } catch (Exception e) {
+			     e.printStackTrace();
+			     return null;
+		   } finally {
+			   try {
+				   if(objInputStream != null) {
+					   objInputStream.close();
+				   }
+				   if(inputStream != null) {
+					   inputStream.close();
+				   }
+				   if(objOutputStream != null) {
+					   objOutputStream.close();
+				   }
+				   if(outputStream != null) {
+					   outputStream.close();
+				   }
+			   } catch(Exception e) {
+				   e.printStackTrace();
+			   }
 		   }
-		   catch (Exception e) {
-		     e.printStackTrace();
-		     return original;
-		   }
-		}
+	}
 }

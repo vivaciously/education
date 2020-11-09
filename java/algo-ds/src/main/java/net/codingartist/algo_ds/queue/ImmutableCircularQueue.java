@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import net.codingartist.algo_ds.exceptions.CloneFailedException;
 import net.codingartist.algo_ds.utils.AlgoDSUtils;
 
 public class ImmutableCircularQueue<E extends Serializable> extends CircularQueue<E> {
@@ -22,7 +23,11 @@ public class ImmutableCircularQueue<E extends Serializable> extends CircularQueu
 	@Override
 	public E peek() {
 		E val = super.peek();
-		return (E)AlgoDSUtils.deepCopy(val);
+		E cloned = (E)AlgoDSUtils.deepCopy(val);
+		if(cloned == null) {
+			throw new CloneFailedException("Failed to deepCopy the first element: " + val);
+		}
+		return cloned;
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -34,7 +39,11 @@ public class ImmutableCircularQueue<E extends Serializable> extends CircularQueu
 		if(size < capacity) {
 			size++;
 			int index = insertIndex % capacity;
-			elements[index] = (E)AlgoDSUtils.deepCopy(element);
+			E cloned = (E)AlgoDSUtils.deepCopy(element);
+			if(cloned == null) {
+				throw new CloneFailedException("Failed to deepCopy the element: " + element);
+			}
+			elements[index] = cloned;
 			insertIndex = (insertIndex + 1) % capacity;
 		} else {
 			throw new IllegalArgumentException("The CircularQueue is Full.");
