@@ -17,7 +17,7 @@ import java.util.stream.LongStream;
 import java.util.stream.DoubleStream;
 import java.util.function.UnaryOperator;
 
-import net.codingartist.algo_ds.exceptions.EmptyQueueException;
+import net.codingartist.algo_ds.exceptions.EmptyDataStructureException;
 
 public class CircularQueueTest {
 
@@ -303,7 +303,7 @@ public class CircularQueueTest {
 	
 	@Test
 	public void testPeek() {
-		Assertions.assertThrows(EmptyQueueException.class, () -> {
+		Assertions.assertThrows(EmptyDataStructureException.class, () -> {
 			queue.peek();
 		 });
 		queue.enqueue(2);
