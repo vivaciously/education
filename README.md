@@ -14,12 +14,27 @@ As mentioned above, currently the repository contains data structure / algorithm
 * JUnit 5
 
 ### Project Structure ###
-
-
-<pre>
+```
 java/algo-ds
 	|-- src/main/java
 	|-- src/test/java  
 	|-- src/resources     
 	pom.xml               
-</pre>
+```
+
+### How to ###
+
+#### 1. compile and run JUnit test cases ####
+   You need to have [Maven](http://maven.apache.org/download.cgi) installed.
+
+	1. cd into the '/education/java/algo-ds' directory
+	2. mvn test
+
+#### 2. import the project to Eclipse ####
+
+	File -> import -> Existing Maven Projects -> education -> java -> algo-ds
+
+#### 3. Create the jar file ####
+
+	1. cd into the '/education/java/algo-ds' directory.
+	2. mvn install
