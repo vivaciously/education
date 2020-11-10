@@ -8,6 +8,8 @@ import java.lang.management.ManagementFactory;
 import java.lang.management.ThreadInfo;
 import java.lang.management.ThreadMXBean;
 import java.util.Arrays;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class AlgoDSUtils {
 
@@ -33,6 +35,17 @@ public class AlgoDSUtils {
 			});
 		});
 		return sb.toString();
+	}
+	
+	public static void shutDownExecutorService(ExecutorService execService) {
+		execService.shutdown();
+		try {
+			if(!execService.awaitTermination(800, TimeUnit.MILLISECONDS)) {
+				execService.shutdownNow();
+			}
+		} catch(InterruptedException e) {
+			execService.shutdownNow();
+		}
 	}
 	
 	public static Object deepCopy(Object original) {
