@@ -43,6 +43,9 @@ public class MathUtils {
     }
 	
 	public static int fibonacci(int n){
+		if(n < 0) {
+			throw new IllegalArgumentException("Fibonacci numbers starts from 0 and 1.");
+		}
 		if(n == 0 || n == 1){
 			return n;
 		}
@@ -56,19 +59,12 @@ public class MathUtils {
 		return a + b;
 	}
 	
-	public static int getRandomInteger(int mim, int max) {
+	public static int randomInt(int mim, int max) {
 		return ThreadLocalRandom.current().nextInt(mim, max + 1);
 	}
 	
 	public static int gcd(int a, int b) {
-		if(b == 0) {
-			return a;
-		}
-		int r = a % b;
-		if(r != 0) {
-			return gcd(b, r);
-		}
-		return b;
+		return b > 0 ? gcd(b, a % b) : a;
 	}
 	
 	public static int lcm(int a, int b) {
