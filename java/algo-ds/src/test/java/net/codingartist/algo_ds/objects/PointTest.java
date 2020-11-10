@@ -35,4 +35,20 @@ public class PointTest {
 		assertTrue(c1.hashCode() == c2.hashCode());
 		assertFalse(c1.hashCode() == c3.hashCode());
 	}
+	
+	@Test
+	void testEuclidianDistance() {
+		Point p1 = new Point(1,6);
+		Point p2 = new Point(2,3);
+		assertTrue(p1.eucledianDistance(p2) == 3.1622776601683795);
+		assertTrue(p2.eucledianDistance(p1) == 3.1622776601683795);
+	   
+		p1.x = 1;
+		p1.y = 1;
+		
+		p2.x = 1;
+		p2.y = 1;
+		
+		assertTrue(p1.eucledianDistance(p2) == 0.0);
+	}
 }

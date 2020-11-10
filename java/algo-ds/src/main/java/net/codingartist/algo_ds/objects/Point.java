@@ -16,6 +16,12 @@ public class Point implements Serializable {
 		this.y = y;
 	}
 	
+	public double eucledianDistance(Point another) {
+		int sqX = (x - another.x) * (x - another.x);
+		int sqY = (y - another.y) * (y - another.y);
+		return Math.sqrt(sqX + sqY);
+	}
+	
 	@Override
 	public boolean equals(Object o) {
 		if(o == this) {
