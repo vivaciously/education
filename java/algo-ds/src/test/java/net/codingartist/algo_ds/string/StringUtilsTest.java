@@ -34,6 +34,9 @@ public class StringUtilsTest {
 		assertEquals(StringUtils.leftJustify("abc", 4, 'd'), "dabc");
 		assertEquals(StringUtils.leftJustify("abc", 5, 'd'), "ddabc");
 		assertEquals(StringUtils.leftJustify("abc", 2, 'd'), "abc");
+		assertThrows(NullPointerException.class, () -> {
+			StringUtils.leftJustify(null, 2, 'd');
+		});
 	}
 	
 	@Test
@@ -43,5 +46,32 @@ public class StringUtilsTest {
 		assertEquals(StringUtils.rightJustify("abc", 4, 'd'), "abcd");
 		assertEquals(StringUtils.rightJustify("abc", 5, 'd'), "abcdd");
 		assertEquals(StringUtils.rightJustify("abc", 2, 'd'), "abc");
+		assertThrows(NullPointerException.class, () -> {
+			StringUtils.rightJustify(null, 2, 'd');
+		});
+	}
+	
+	@Test
+	public void testLeftPad() {
+		assertEquals(StringUtils.leftPad("", 5, 'a'), "aaaaa");
+		assertEquals(StringUtils.leftPad("abc", 3, 'd'), "dddabc");
+		assertEquals(StringUtils.leftPad("abc", 4, 'd'), "ddddabc");
+		assertEquals(StringUtils.leftPad("abc", 5, 'd'), "dddddabc");
+		assertEquals(StringUtils.leftPad("abc", 2, 'd'), "ddabc");
+		assertThrows(NullPointerException.class, () -> {
+			StringUtils.leftPad(null, 2, 'd');
+		});
+	}
+	
+	@Test
+	public void testRightPad() {
+		assertEquals(StringUtils.rightPad("", 5, 'a'), "aaaaa");
+		assertEquals(StringUtils.rightPad("abc", 3, 'd'), "abcddd");
+		assertEquals(StringUtils.rightPad("abc", 4, 'd'), "abcdddd");
+		assertEquals(StringUtils.rightPad("abc", 5, 'd'), "abcddddd");
+		assertEquals(StringUtils.rightPad("abc", 2, 'd'), "abcdd");
+		assertThrows(NullPointerException.class, () -> {
+			StringUtils.rightPad(null, 2, 'd');
+		});
 	}
 }

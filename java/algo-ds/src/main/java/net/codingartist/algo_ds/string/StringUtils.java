@@ -36,4 +36,28 @@ public class StringUtils {
 		}
 		return sb.toString();
 	}
+	
+	public static String leftPad(String str, int n, char c) {
+		if(str == null) {
+			throw new NullPointerException("Given str is null");
+		}
+		StringBuilder sb = new StringBuilder();
+		for(int i=0; i<n; i++) {
+			sb.append(c);
+		}
+		sb.append(str);
+		return sb.toString();
+	}
+	
+	public static String rightPad(String str, int n, char c) {
+		if(str == null) {
+			throw new NullPointerException("Given str is null");
+		}
+		StringBuilder sb = new StringBuilder();
+		sb.append(str);
+		for(int i=0; i<n; i++) {
+			sb.append(c);
+		}
+		return sb.toString();
+	}
 }
