@@ -38,3 +38,5 @@ java/algo-ds
 
 	1. cd into the '/education/java/algo-ds' directory.
 	2. mvn package
+
+You can find the generated jar file at '/education/java/algo-ds/target/algo-ds-\<version\>.jar'
