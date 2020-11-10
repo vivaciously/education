@@ -6,6 +6,21 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 public class BitUtilsTest {
+	
+	@Test
+	public void testIsPositive() {
+		assertTrue(BitUtils.isPositive(1));
+		assertFalse(BitUtils.isPositive(-1));
+	}
+	
+	@Test
+	public void testSign() {
+		assertTrue(BitUtils.sign(1) == 0);
+		assertTrue(BitUtils.sign(-34) == 1);
+		
+		assertTrue(BitUtils.sign(Integer.MAX_VALUE) == 0);
+		assertTrue(BitUtils.sign(Integer.MIN_VALUE) == 1);
+	}
 
 	@Test
 	public void testGetBit() {
@@ -20,5 +35,11 @@ public class BitUtilsTest {
 	public void testClearBit() {
 		assertTrue(BitUtils.getBit(BitUtils.clearBit(5, 2), 2) == 0);
 		assertTrue(BitUtils.getBit(BitUtils.clearBit(5, 1), 1) == 0);
+	}
+	
+	@Test
+	public void testFlipBit() {
+		assertTrue(BitUtils.flipBit(1) == 0);
+		assertTrue(BitUtils.flipBit(0) == 1);
 	}
 }
