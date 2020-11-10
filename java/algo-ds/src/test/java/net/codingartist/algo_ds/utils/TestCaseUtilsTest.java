@@ -25,7 +25,6 @@ public class TestCaseUtilsTest {
 	
 	@Test
 	public void testDoubleToBinaryString() {
-		//System.out.println(TestCaseUtils.doubleToBinaryString(-23.45));
 		assertEquals(TestCaseUtils.doubleToBinaryString(-23.45), "1100000000110111011100110011001100110011001100110011001100110011");
 	}
 }
