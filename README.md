@@ -37,4 +37,4 @@ java/algo-ds
 #### 3. Create the jar file ####
 
 	1. cd into the '/education/java/algo-ds' directory.
-	2. mvn install
+	2. mvn package
