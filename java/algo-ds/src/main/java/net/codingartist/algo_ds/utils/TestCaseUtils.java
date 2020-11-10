@@ -14,6 +14,6 @@ public class TestCaseUtils {
 	}
 	
 	public static String intToBinaryString(int value) {
-		return StringUtils.leftPad(Integer.toBinaryString(value), 32, '0');
+		return StringUtils.leftJustify(Integer.toBinaryString(value), 32, '0');
 	}
 }
