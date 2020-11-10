@@ -102,14 +102,22 @@ public class MathUtilsTest {
 		assertTrue(MathUtils.randomInt(11, 11) == 11);
 	}
 	
+	@Test
 	public void testGCD() {
 		assertTrue(MathUtils.gcd(52, 39) == 13);
 		assertTrue(MathUtils.gcd(51357, 3819) == 57);
 	}
 	
+	@Test
 	public void testLCM() {
 		assertTrue(MathUtils.lcm(10, 8) == 40);
 		assertTrue(MathUtils.lcm(2, 3) == 6);
+	}
+	
+	@Test
+	public void testIsValidTriangle() {
+		assertTrue(MathUtils.isValidTriangle(3, 4, 5));
+		assertFalse(MathUtils.isValidTriangle(4, 7, 13));
 	}
 	
 }

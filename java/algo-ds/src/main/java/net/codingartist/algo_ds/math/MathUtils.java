@@ -72,4 +72,8 @@ public class MathUtils {
 		//lcm = a*b / (gcd)
 		return (a*b) / gcd(a,b);
 	}
+	
+	public static boolean isValidTriangle(double a, double b, double c) {
+		return (a + b > c) && (b + c > a) && (c + a > b);
+	}
 }
