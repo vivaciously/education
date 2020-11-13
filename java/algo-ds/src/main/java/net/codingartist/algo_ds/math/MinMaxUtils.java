@@ -19,7 +19,7 @@ public class MinMaxUtils {
 		return compare > 0 ? a : b;
 	}
 	
-	public static <T> T max(T a, T b, Comparator<T> c) {
+	public static <E> E max(E a, E b, Comparator<E> c) {
 		if(a == null || b == null || c == null) {
 			throw new NullPointerException("Given arguments cannot be null. a: " + a + " b: " + b + " c: " + c);
 		}
@@ -41,7 +41,7 @@ public class MinMaxUtils {
 		return compare > 0 ? b : a;
 	}
 	
-	public static <T> T min(T a, T b, Comparator<T> c) {
+	public static <E> E min(E a, E b, Comparator<E> c) {
 		if(a == null || b == null || c == null) {
 			throw new NullPointerException("Given arguments cannot be null. a: " + a + " b: " + b + " c: " + c);
 		}
