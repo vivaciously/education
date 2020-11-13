@@ -26,28 +26,62 @@ public class Matrix2D<E> {
 		this.columns = columns;
 	}
 	
+	public Matrix2D(E[][] matrix) {
+		if(matrix == null) {
+			throw new NullPointerException("Given matrix is null.");
+		} else if(matrix[0] == null) {
+			throw new NullPointerException("The columns of given matrix is null.");
+		}
+		int rows = matrix.length;
+		int cols = matrix[0].length;
+		array = new Object[rows * cols];
+		this.rows = rows;
+		this.columns = cols;
+		for(int i=0; i<rows; i++) {
+			for(int j=0; j<cols; j++) {
+				array[index(i,j)] = matrix[i][j];
+			}
+		}
+	}
 	
 	@SuppressWarnings("unchecked")
 	public E get(int row, int column){
 		boundaryCheck(row, column);
-		return (E)array[columns*row + column];
+		return (E)array[index(row, column)];
 	}
 	
 	public void set(int row, int column, E value){
 		boundaryCheck(row, column);
-		array[columns*row + column] = value;
+		array[index(row, column)] = value;
 	}
 	
 	public void rotate() {
-		//TODO
+		transpose();
+		flip();
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void transpose() {
-		//TODO
+		for(int i=0; i<rows; i++) {
+			for(int j=i+1; j<columns; j++) {
+				E temp = (E) array[index(i,j)];
+				array[index(i,j)] = array[index(j, i)];
+				array[index(j,i)] = temp;
+			}
+		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void flip() {
-		//TODO
+		for(int i=0; i<rows; i++) {
+			int left = 0;
+			int right = columns -1;
+			while(left < right) {
+				E temp = (E)array[index(i, left)];
+				array[index(i, left)] = array[index(i, right)];
+				array[index(i, right)] = temp;
+			}
+		}
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -62,14 +96,24 @@ public class Matrix2D<E> {
 		return (E[])Arrays.copyOf(array, rows * columns);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public E[][] to2DArray() {
-		//TODO
-		return null;
+		Object[][] matrix = new Object[rows][columns];
+		for(int i=0; i<rows; i++) {
+			for(int j=0; j<columns; j++) {
+				matrix[i][j] = array[index(i,j)];
+			}
+		}
+		return (E[][])matrix;
 	}
 	
 	protected void boundaryCheck(int row, int column){
 		if(row < 0 || row >= rows || column < 0 || column >= columns){
 			throw new IllegalArgumentException("Invalid boundary of Matrix row: " + row + " column: " + column);
 		}
+	}
+	
+	protected int index(int r, int c) {
+		return this.columns * r + c;
 	}
 }
