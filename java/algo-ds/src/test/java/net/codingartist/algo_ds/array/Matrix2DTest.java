@@ -1,6 +1,9 @@
 package net.codingartist.algo_ds.array;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import org.junit.jupiter.api.AfterEach;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
@@ -11,6 +14,11 @@ import net.codingartist.algo_ds.math.MathUtils;
 public class Matrix2DTest {
 
 	protected Matrix2D<Integer> matrix;
+	
+	@AfterEach
+	void tearDown() {
+		matrix = null;
+	}
 	
 	@Test
 	public void testSetGet(){
