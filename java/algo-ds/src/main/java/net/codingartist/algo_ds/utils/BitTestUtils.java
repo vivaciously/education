@@ -2,9 +2,9 @@ package net.codingartist.algo_ds.utils;
 
 import net.codingartist.algo_ds.string.StringUtils;
 
-public class TestCaseUtils {
+public class BitTestUtils {
 
-	private TestCaseUtils() {
+	private BitTestUtils() {
 		throw new AssertionError("no instantiability");
 	}
 	
@@ -16,4 +16,5 @@ public class TestCaseUtils {
 	public static String intToBinaryString(int value) {
 		return StringUtils.leftJustify(Integer.toBinaryString(value), 32, '0');
 	}
+	
 }
