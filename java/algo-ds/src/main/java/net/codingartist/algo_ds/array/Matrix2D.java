@@ -5,8 +5,8 @@ import java.util.Arrays;
 public class Matrix2D<E> {
 
 	private Object[] array;
-	private final int rows;
-	private final int columns;
+	protected final int rows;
+	protected final int columns;
 	
 	public Matrix2D(int n){
 		if(n < 0) {
@@ -55,6 +55,18 @@ public class Matrix2D<E> {
 		array[index(row, column)] = value;
 	}
 	
+	public int rows() {
+		return this.rows;
+	}
+	
+	public int columns() {
+		return this.columns;
+	}
+	
+	public int length() {
+		return rows * columns;
+	}
+	
 	public void rotate() {
 		transpose();
 		flip();
@@ -80,6 +92,8 @@ public class Matrix2D<E> {
 				E temp = (E)array[index(i, left)];
 				array[index(i, left)] = array[index(i, right)];
 				array[index(i, right)] = temp;
+				left++;
+				right--;
 			}
 		}
 	}
@@ -92,19 +106,38 @@ public class Matrix2D<E> {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public E[] toArray() {
-		return (E[])Arrays.copyOf(array, rows * columns);
+	public E[] toArray(E[] dst) {
+		if(dst == null) {
+			throw new NullPointerException("Given array dst is null.");
+		}
+		if(dst.length < rows * columns) {
+			throw new IllegalArgumentException("The length of dst is less than the length of Matrix2D: " + dst.length + " rows: " 
+					+ this.rows + " columns: " + columns);
+		}
+		for(int i=0; i<rows; i++) {
+			for(int j=0; j<columns; j++) {
+				dst[index(i,j)] = (E)array[index(i,j)];
+			}
+		}
+		return dst;
 	}
 	
 	@SuppressWarnings("unchecked")
-	public E[][] to2DArray() {
-		Object[][] matrix = new Object[rows][columns];
+	public E[][] to2DArray(E[][] dst) {
+		if(dst == null) {
+			throw new NullPointerException("Given array dst is null.");
+		}
+		if(dst.length != rows || dst[0].length != columns) {
+			throw new IllegalArgumentException("The length of dst is not the same as the length of Matrix2D: " + "dst.length"
+		+ dst.length + " rows: " 
+					+ this.rows + " dst[0].length: " + dst[0].length + " columns: " + columns);
+		}
 		for(int i=0; i<rows; i++) {
 			for(int j=0; j<columns; j++) {
-				matrix[i][j] = array[index(i,j)];
+				dst[i][j] = (E)array[index(i,j)];
 			}
 		}
-		return (E[][])matrix;
+		return dst;
 	}
 	
 	protected void boundaryCheck(int row, int column){
@@ -116,4 +149,22 @@ public class Matrix2D<E> {
 	protected int index(int r, int c) {
 		return this.columns * r + c;
 	}
+	
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("[  ").append("\n");
+		for(int i=0; i<rows; i++) {
+			sb.append("  [");
+			for(int j=0; j<columns; j++) {
+				sb.append(this.get(i, j)).append(",").append(" ");
+			}
+			sb.setLength(sb.length() -2);
+			sb.append("]");
+			sb.append("\n");
+		}
+		sb.append("]");
+		return sb.toString();
+	}
+	
 }
