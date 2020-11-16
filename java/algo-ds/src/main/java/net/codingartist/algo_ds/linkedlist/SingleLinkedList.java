@@ -42,19 +42,31 @@ public class SingleLinkedList<E> implements Iterable<E> {
 	}
 	
 	public SingleLinkedList(Iterable<? extends E> src){
+		SListNode<E> p = null;
 		for(E data : src){
-			addToFront(data);
+			if(head == null) { 
+				head = new SListNode<>(data);
+				p = head;
+			} else {
+				p.next = new SListNode<>(data);
+				p = p.next;
+			}
+			size++;
 		}
-		reverse();
 	}
 	
 	public SingleLinkedList(E[] array){
+		SListNode<E> p = null;
 		for(int i=0;  i<array.length; i++){
-			if(array[i] != null){
-				addToFront(array[i]);
+			if(head == null) { 
+				head = new SListNode<>(array[i]);
+				p = head;
+			} else {
+				p.next = new SListNode<>(array[i]);
+				p = p.next;
 			}
+			size++;
 		}
-		reverse();
 	}
 	
 	public SListNode<E> head() {
