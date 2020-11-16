@@ -1,6 +1,8 @@
 package net.codingartist.algo_ds.utils;
 
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class ArrayTestUtils {
 
@@ -50,6 +52,18 @@ public class ArrayTestUtils {
 	
 	public static int[] integerToIntArray(Integer[] array) {
 		return Arrays.stream(array).mapToInt(Integer::valueOf).toArray();
+	}
+	
+	public static List<Integer> strToIntegerList(String str) {
+		return Arrays.stream(strToIntegerArray(str)).collect(Collectors.toList());
+	}
+	
+	public static List<Integer> toIntegerList(int[] array) {
+		return Arrays.stream(intToIntegerArray(array)).collect(Collectors.toList());
+	}
+	
+	public static List<Integer> toIntegerList(Integer[] array) {
+		return Arrays.stream(array).collect(Collectors.toList());
 	}
 	
 	
@@ -102,6 +116,14 @@ public class ArrayTestUtils {
 		return results;
 	}
 	
+	public static List<Character> strToCharacterList(String str) {
+		return Arrays.stream(strToCharacterArray(str)).collect(Collectors.toList());
+	}
+	
+	public static List<Character> toCharacterList(Character[] array) {
+		return Arrays.stream(array).collect(Collectors.toList());
+	}
+	
 	public static String[] strToStringArray(String str) {
 		if(str == null) {
 			throw new NullPointerException("Given str is null.");
@@ -109,11 +131,11 @@ public class ArrayTestUtils {
 		str = str.replaceAll("\s+", "");
 		if(str.length() < 2) {
 			throw new IllegalArgumentException("The format of str is '[a,b,c]' where it starts with '[' and ends with ']'"
-					+ "and 'a' 'b' 'c' are char values and separated by a comma.");
+					+ "and 'a' 'b' 'c' are String values and separated by a comma.");
 		}
 		if(!(str.startsWith("[") && str.endsWith("]"))) {
 			throw new IllegalArgumentException("The format of str is '[a,b,c]' where it starts with '[' and ends with ']'"
-					+ "and 'a' 'b' 'c' are char values and separated by a comma.");
+					+ "and 'a' 'b' 'c' are String values and separated by a comma.");
 		}
 		str = str.substring(1, str.length()-1);
 		if(str.length() == 0) {
@@ -137,5 +159,12 @@ public class ArrayTestUtils {
 		return results;
 	}
 	
+	public static List<String> strToStringList(String str) {
+		return Arrays.stream(strToStringArray(str)).collect(Collectors.toList());
+	}
+	
+	public static List<String> toStringList(String[] array) {
+		return Arrays.stream(array).collect(Collectors.toList());
+	}
 	
 }

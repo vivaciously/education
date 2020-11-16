@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.List;
+
 import org.junit.jupiter.api.Test;
 
 public class ArrayTestUtilsTest {
@@ -119,6 +121,73 @@ public class ArrayTestUtilsTest {
 	}
 	
 	@Test
+	public void testStrToIntegerList() {
+		String input ="[0, 1, 2]";
+		List<Integer> result = ArrayTestUtils.strToIntegerList(input);
+		for(int i=0; i<result.size(); i++) {
+			assertEquals(result.get(i), i);
+		}
+		input = " []";
+		result = ArrayTestUtils.strToIntegerList(input);
+		assertTrue(result.size() == 0);
+		
+		assertThrows(IllegalArgumentException.class, () -> {
+			ArrayTestUtils.strToIntegerList("(1,2,3)");
+		});
+		
+		assertThrows(IllegalArgumentException.class, () -> {
+			ArrayTestUtils.strToIntegerList("[1,2,3)");
+		});
+		
+		assertThrows(IllegalArgumentException.class, () -> {
+			ArrayTestUtils.strToIntegerList("(1,2,3]");
+		});
+		
+		assertThrows(IllegalArgumentException.class, () -> {
+			ArrayTestUtils.strToIntegerList("abc");
+		});
+		
+		assertThrows(IllegalArgumentException.class, () -> {
+			ArrayTestUtils.strToIntegerList("ab");
+		});
+		
+		assertThrows(IllegalArgumentException.class, () -> {
+			ArrayTestUtils.strToIntegerList("");
+		});
+		
+		assertThrows(IllegalArgumentException.class, () -> {
+			ArrayTestUtils.strToIntegerList("[a,b,c]");
+		});
+		
+		assertThrows(IllegalArgumentException.class, () -> {
+			ArrayTestUtils.strToIntegerList("['']");
+		});
+		
+		assertThrows(NullPointerException.class, () -> {
+			ArrayTestUtils.strToIntegerList(null);
+		});
+	}
+	
+	@Test
+	public void testToIntegerListFromIntArray() {
+		int[] original = new int[]{1,2,3,4,5};
+		List<Integer> results = ArrayTestUtils.toIntegerList(original);
+		for(int i=0; i<original.length; i++) {
+			assertEquals(original[i], results.get(i));
+		}
+	}
+	
+	@Test
+	public void testToIntegerListFromIntegerArray() {
+		Integer[] original = new Integer[] {1,2,3};
+		List<Integer> results = ArrayTestUtils.toIntegerList(original);
+		for(int i=0; i<original.length; i++) {
+			assertEquals(original[i], results.get(i));
+		}
+	}
+	
+	
+	@Test
 	public void testStrToCharArray() {
 		String input ="[A, B, C, ' ', D]";
 		char[] result = ArrayTestUtils.strToCharArray(input);
@@ -209,6 +278,64 @@ public class ArrayTestUtilsTest {
 	}
 	
 	@Test
+	public void testStrToCharacterList() {
+		String input ="[A, B, C, ' ', D]";
+		List<Character> results = ArrayTestUtils.strToCharacterList(input);
+		char[] test = {'A','B','C', ' ', 'D'};//' ' is a space
+		for(int i=0; i<results.size(); i++) {
+			assertEquals(results.get(i), test[i]);
+		}
+		input = " []";
+		results = ArrayTestUtils.strToCharacterList(input);
+		assertTrue(results.size() == 0);
+		
+		assertThrows(IllegalArgumentException.class, () -> {
+			ArrayTestUtils.strToCharacterList("(a,b,c)");
+		});
+		
+		assertThrows(IllegalArgumentException.class, () -> {
+			ArrayTestUtils.strToCharacterList("[a,b,c)");
+		});
+		
+		assertThrows(IllegalArgumentException.class, () -> {
+			ArrayTestUtils.strToCharacterList("(a,b,c]");
+		});
+		
+		assertThrows(IllegalArgumentException.class, () -> {
+			ArrayTestUtils.strToCharacterList("abc");
+		});
+		
+		assertThrows(IllegalArgumentException.class, () -> {
+			ArrayTestUtils.strToCharacterList("ab");
+		});
+		
+		assertThrows(IllegalArgumentException.class, () -> {
+			ArrayTestUtils.strToCharacterList("");
+		});
+		
+		assertThrows(IllegalArgumentException.class, () -> {
+			ArrayTestUtils.strToCharacterList("[1,2,4]");
+		});
+		
+		assertThrows(NullPointerException.class, () -> {
+			ArrayTestUtils.strToCharacterList(null);
+		});
+	}
+	
+	@Test
+	public void testToCharacterList() {
+		String input ="[A, B, C, ' ', D]";
+		List<Character> results = ArrayTestUtils.toCharacterList(ArrayTestUtils.strToCharacterArray(input));
+		char[] test = {'A','B','C', ' ', 'D'};//' ' is a space
+		for(int i=0; i<results.size(); i++) {
+			assertEquals(results.get(i), test[i]);
+		}
+		input = " []";
+		results = ArrayTestUtils.toCharacterList(ArrayTestUtils.strToCharacterArray(input));
+		assertTrue(results.size() == 0);
+	}
+	
+	@Test
 	public void testStrToStringArray() {
 		String input = "[AB, a, b, c, A, ' ', D]";
 		String[] results = ArrayTestUtils.strToStringArray(input);
@@ -251,7 +378,68 @@ public class ArrayTestUtilsTest {
 		assertThrows(IllegalArgumentException.class, () -> {
 			ArrayTestUtils.strToStringArray("");
 		});
+	}
+	
+	@Test
+	public void testStrToStringList() {
+		String input = "[AB, a, b, c, A, ' ', D]";
+		List<String> results = ArrayTestUtils.strToStringList(input);
+		String[] expected = new String[] {"AB", "a", "b", "c", "A", "", "D"};
+		for(int i=0; i<results.size(); i++) {
+			assertEquals(results.get(i), expected[i]);
+		}
+		results = ArrayTestUtils.strToStringList("[] ");
+		assertTrue(results.size() == 0);
+		expected = new String[] {"1", "2", "@", "+", "ABCDEFG", "CD 67" , " Abc f"};
+		results = ArrayTestUtils.strToStringList("[1,2,@,+, ABCDEFG, CD' '67, ' 'Abc' 'f]");
+		for(int i=0; i<results.size(); i++) {
+			assertEquals(results.get(i), expected[i]);
+		}
 		
+		assertThrows(NullPointerException.class, () -> {
+			ArrayTestUtils.strToStringList(null);
+		});
+		
+		assertThrows(IllegalArgumentException.class, () -> {
+			ArrayTestUtils.strToStringList("(a,b,c)");
+		});
+		
+		assertThrows(IllegalArgumentException.class, () -> {
+			ArrayTestUtils.strToStringList("[a,b,c)");
+		});
+		
+		assertThrows(IllegalArgumentException.class, () -> {
+			ArrayTestUtils.strToStringList("(a,b,c]");
+		});
+		
+		assertThrows(IllegalArgumentException.class, () -> {
+			ArrayTestUtils.strToStringList("abc");
+		});
+		
+		assertThrows(IllegalArgumentException.class, () -> {
+			ArrayTestUtils.strToStringList("ab");
+		});
+		
+		assertThrows(IllegalArgumentException.class, () -> {
+			ArrayTestUtils.strToStringList("");
+		});
+	}
+	
+	@Test
+	public void testToStringList() {
+		String input = "[AB, a, b, c, A, ' ', D]";
+		List<String> results = ArrayTestUtils.toStringList(ArrayTestUtils.strToStringArray(input));
+		String[] expected = new String[] {"AB", "a", "b", "c", "A", "", "D"};
+		for(int i=0; i<results.size(); i++) {
+			assertEquals(results.get(i), expected[i]);
+		}
+		results = ArrayTestUtils.toStringList(ArrayTestUtils.strToStringArray("[] "));
+		assertTrue(results.size() == 0);
+		expected = new String[] {"1", "2", "@", "+", "ABCDEFG", "CD 67" , " Abc f"};
+		results = ArrayTestUtils.toStringList(ArrayTestUtils.strToStringArray("[1,2,@,+, ABCDEFG, CD' '67, ' 'Abc' 'f]"));
+		for(int i=0; i<results.size(); i++) {
+			assertEquals(results.get(i), expected[i]);
+		}
 	}
 	
 }
