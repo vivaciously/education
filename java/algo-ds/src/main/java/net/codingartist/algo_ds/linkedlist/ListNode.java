@@ -1,16 +1,18 @@
 package net.codingartist.algo_ds.linkedlist;
 
-public class SListNode<E> {
-	protected SListNode<E> next;
+public class ListNode<E> {
+	protected ListNode<E> next;
+	protected ListNode<E> prev;
 	protected E value;
 	
-	protected SListNode() {
+	protected ListNode() {
 		next = null;
 		value = null;
+		prev = null;
 	}
 	
 	
-	public SListNode(E value) {
+	public ListNode(E value) {
 		this.value = value;
 	}
 	
@@ -18,7 +20,12 @@ public class SListNode<E> {
 		return this.value;
 	}
 	
-	public SListNode<E> next() {
+	public ListNode<E> next() {
 		return next;
 	}
+	
+	public ListNode<E> prev() {
+		return prev;
+	}
+	
 }

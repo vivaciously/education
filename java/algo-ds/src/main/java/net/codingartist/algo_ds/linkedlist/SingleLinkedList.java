@@ -9,7 +9,7 @@ import java.util.stream.Stream.Builder;
 
 
 public class SingleLinkedList<E> implements Iterable<E> {
-	protected SListNode<E> head;
+	protected ListNode<E> head;
 	protected int size;
 	
 	protected void checkIndex(int index) {
@@ -38,18 +38,18 @@ public class SingleLinkedList<E> implements Iterable<E> {
 	}
 	
 	public SingleLinkedList(E value) {
-		head = new SListNode<>(value);
+		head = new ListNode<>(value);
 		size++;
 	}
 	
 	public SingleLinkedList(Iterable<? extends E> src){
-		SListNode<E> p = null;
+		ListNode<E> p = null;
 		for(E data : src){
 			if(head == null) { 
-				head = new SListNode<>(data);
+				head = new ListNode<>(data);
 				p = head;
 			} else {
-				p.next = new SListNode<>(data);
+				p.next = new ListNode<>(data);
 				p = p.next;
 			}
 			size++;
@@ -57,21 +57,17 @@ public class SingleLinkedList<E> implements Iterable<E> {
 	}
 	
 	public SingleLinkedList(E[] array){
-		SListNode<E> p = null;
+		ListNode<E> p = null;
 		for(int i=0;  i<array.length; i++){
 			if(head == null) { 
-				head = new SListNode<>(array[i]);
+				head = new ListNode<>(array[i]);
 				p = head;
 			} else {
-				p.next = new SListNode<>(array[i]);
+				p.next = new ListNode<>(array[i]);
 				p = p.next;
 			}
 			size++;
 		}
-	}
-	
-	public SListNode<E> head() {
-		return head;
 	}
 	
 	public int size() {
@@ -86,7 +82,7 @@ public class SingleLinkedList<E> implements Iterable<E> {
 		if(head == null) {
 			return false;
 		}
-		SListNode<E> p = head;
+		ListNode<E> p = head;
 		while(p != null) {
 			if(p.value.equals(value)) {
 				return true;
@@ -103,7 +99,7 @@ public class SingleLinkedList<E> implements Iterable<E> {
 	
 	public E peekTail() {
 		checkSize();
-		SListNode<E> pointer = head;
+		ListNode<E> pointer = head;
 		while(pointer != null && pointer.next != null) {
 			pointer = pointer.next;
 		}
@@ -116,7 +112,7 @@ public class SingleLinkedList<E> implements Iterable<E> {
 		}
 		
 		checkIndex(index);
-		SListNode<E> node = head;
+		ListNode<E> node = head;
 		for(int i=0; i<index; i++) {
 			node = node.next;
 		}
@@ -131,9 +127,9 @@ public class SingleLinkedList<E> implements Iterable<E> {
 	public void addToFront(E value) {
 		checkValue(value);
 		if(head == null) {
-			head = new SListNode<>(value);
+			head = new ListNode<>(value);
 		} else {
-			SListNode<E> n = new SListNode<>(value);
+			ListNode<E> n = new ListNode<>(value);
 			n.next = head;
 			head = n;
 		}
@@ -143,13 +139,13 @@ public class SingleLinkedList<E> implements Iterable<E> {
 	public void addToTail(E value) {
 		checkValue(value);
 		if(head == null) {
-			head = new SListNode<>(value);
+			head = new ListNode<>(value);
 		} else {
-			SListNode<E> pointer = head;
+			ListNode<E> pointer = head;
 			while(pointer != null && pointer.next != null) {
 				pointer = pointer.next;
 			}
-			pointer.next = new SListNode<>(value);
+			pointer.next = new ListNode<>(value);
 		}
 		size++;
 	}
@@ -157,16 +153,16 @@ public class SingleLinkedList<E> implements Iterable<E> {
 	public void insertAt(E value, int index) {
 		checkValue(value);
 		if(head == null && index == 0) {
-			head = new SListNode<>(value);
+			head = new ListNode<>(value);
 		} else {
 			checkIndex(index);
-			SListNode<E> n = head;
-			SListNode<E> prev = null;
+			ListNode<E> n = head;
+			ListNode<E> prev = null;
 			for(int i=0; i<index; i++) {
 				prev = n;
 				n = n.next;
 			}
-			SListNode<E> node = new SListNode<>(value);
+			ListNode<E> node = new ListNode<>(value);
 			if(index == 0) {
 				node.next = head;
 				head = node;
@@ -198,8 +194,8 @@ public class SingleLinkedList<E> implements Iterable<E> {
 			head = head.next;
 		}else{
 			int counter = 0;
-			SListNode<E> cur = head;
-			SListNode<E> prev = head;
+			ListNode<E> cur = head;
+			ListNode<E> prev = head;
 			while(counter++ != index){
 				prev = cur;
 				cur = cur.next;
@@ -219,8 +215,8 @@ public class SingleLinkedList<E> implements Iterable<E> {
 				size--;
 				return true;
 			} else {
-				SListNode<E> cur = head.next;
-				SListNode<E> prev = head;
+				ListNode<E> cur = head.next;
+				ListNode<E> prev = head;
 				while(cur != null) {
 					if(cur.value.equals(value)) {
 						prev.next = cur.next;
@@ -236,9 +232,9 @@ public class SingleLinkedList<E> implements Iterable<E> {
 	}
 	
 	public void reverse() {
-		SListNode<E> current = head;
-		SListNode<E> next = null;
-		SListNode<E> prev = null;
+		ListNode<E> current = head;
+		ListNode<E> next = null;
+		ListNode<E> prev = null;
 		
 		while (current != null) {
 			next = current.next;
@@ -251,21 +247,37 @@ public class SingleLinkedList<E> implements Iterable<E> {
 	
 	
 	public void addAll(Iterable<? extends E> src) {
-		for(E data : src){
-			if(data != null) {
-				addToFront(data);
-			}
+		ListNode<E> p = head;
+		while(p != null && p.next != null) {
+			p = p.next;
 		}
-		reverse();
+		for(E data : src) {
+			if(p == null) {
+				head = new ListNode<>(data);
+				p = head;
+			} else {
+				p.next = new ListNode<>(data);
+				p = p.next;
+			}
+			size++;
+		}
 	}
 	
 	public void addAll(E[] array) {
-		for(E data : array) {
-			if(data != null) {
-				addToFront(data);
-			}
+		ListNode<E> p = head;
+		while(p != null && p.next != null) {
+			p = p.next;
 		}
-		reverse();
+		for(int i=0; i<array.length; i++){
+			if(p == null) {
+				head = new ListNode<>(array[i]);
+				p = head;
+			} else {
+				p.next = new ListNode<>(array[i]);
+				p = p.next;
+			}
+			size++;
+		}
 	}
 	
 	public E[] toArray(E[] array){
@@ -302,7 +314,7 @@ public class SingleLinkedList<E> implements Iterable<E> {
 		sb.append(size);
 		sb.append("\n");
 		int index = 0;
-		SListNode<E> pointer = head;
+		ListNode<E> pointer = head;
 		while(pointer != null){
 			sb.append("index: ");
 			sb.append(index++);
@@ -320,12 +332,12 @@ public class SingleLinkedList<E> implements Iterable<E> {
 	}
 	
 	public void insertionSort(Comparator<E> c) {
-        SListNode<E> cur = head;
-        SListNode<E> dummy = new SListNode<>();
+        ListNode<E> cur = head;
+        ListNode<E> dummy = new ListNode<>();
         
         while(cur != null) {
-            SListNode<E> next = cur.next;
-            SListNode<E> p = dummy;
+            ListNode<E> next = cur.next;
+            ListNode<E> p = dummy;
             while(p.next != null && c.compare(p.next.value, cur.value) < 0) { 
                 p = p.next; 
             }
@@ -342,7 +354,7 @@ public class SingleLinkedList<E> implements Iterable<E> {
 			return;
 		}
 		head = mergeSort(head, c);
-		SListNode<E> cur = head;
+		ListNode<E> cur = head;
 		while(cur != null && cur.next != null) {
 			if(cur.value.equals(cur.next.value)) {
 				cur.next = cur.next.next;
@@ -356,8 +368,8 @@ public class SingleLinkedList<E> implements Iterable<E> {
         if(head == null || head.next == null) {
             return;
         }
-        for(SListNode<E> prev=head; prev != null; prev = prev.next) {
-            for(SListNode<E> cur=prev.next; cur != null; cur = cur.next) {
+        for(ListNode<E> prev=head; prev != null; prev = prev.next) {
+            for(ListNode<E> cur=prev.next; cur != null; cur = cur.next) {
                 if(c.compare(cur.value, prev.value) < 0) {
                     E temp = cur.value;
                     cur.value = prev.value;
@@ -371,13 +383,13 @@ public class SingleLinkedList<E> implements Iterable<E> {
 		head = mergeSort(head, c);
 	}
 	
-	private SListNode<E> mergeSort(SListNode<E> head, Comparator<E> c) {
+	private ListNode<E> mergeSort(ListNode<E> head, Comparator<E> c) {
 		if(head == null || head.next == null) {
 			return head;
 		}
-		SListNode<E> slow = head;
-		SListNode<E> fast = head;
-		SListNode<E> prev = null;
+		ListNode<E> slow = head;
+		ListNode<E> fast = head;
+		ListNode<E> prev = null;
 		while(fast != null && fast.next != null) {
 			prev = slow;
 			slow = slow.next;
@@ -387,9 +399,9 @@ public class SingleLinkedList<E> implements Iterable<E> {
 		return merge(mergeSort(head, c), mergeSort(slow, c), c);
 	}
 	
-	private SListNode<E> merge(SListNode<E> l1, SListNode<E> l2, Comparator<E> c) {
-		SListNode<E> dummy = new SListNode<>();
-		SListNode<E> p = dummy;
+	private ListNode<E> merge(ListNode<E> l1, ListNode<E> l2, Comparator<E> c) {
+		ListNode<E> dummy = new ListNode<>();
+		ListNode<E> p = dummy;
 		while(l1 != null && l2 != null) {
 			if(c.compare(l1.value, l2.value) < 0) {
 				p.next = l1;

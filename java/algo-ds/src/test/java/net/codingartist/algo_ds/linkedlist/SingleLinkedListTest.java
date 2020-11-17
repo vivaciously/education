@@ -337,6 +337,12 @@ public class SingleLinkedListTest {
 		for(int i=0; i<testCase.length; i++) {
 			assertEquals(testCase[i], list.peekAt(i));
 		}
+		Integer[] anotherTestCase = ArrayTestUtils.strToIntegerArray("[1,2,3]");
+		list.addAll(anotherTestCase);
+		assertTrue(list.size() == testCase.length + anotherTestCase.length);
+		for(int i=0; i<anotherTestCase.length; i++) {
+			assertEquals(anotherTestCase[i], list.peekAt(i + testCase.length));
+		}
 	}
 	
 	@Test

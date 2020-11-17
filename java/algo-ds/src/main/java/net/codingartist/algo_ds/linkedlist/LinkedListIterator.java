@@ -5,9 +5,9 @@ import java.util.NoSuchElementException;
 
 public class LinkedListIterator<T> implements Iterator<T> {
 
-	private SListNode<T> itr;
+	private ListNode<T> itr;
 	
-	public LinkedListIterator(SListNode<T> head) {
+	public LinkedListIterator(ListNode<T> head) {
 		this.itr = head;
 	}
 	
