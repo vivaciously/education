@@ -1,36 +1,9 @@
 package net.codingartist.algo_ds.linkedlist;
 
-import java.util.Collection;
 import java.util.Comparator;
-import java.util.Iterator;
-import java.util.NoSuchElementException;
-import java.util.stream.Stream;
-import java.util.stream.Stream.Builder;
 
 
-public class SingleLinkedList<E> implements Iterable<E> {
-	protected ListNode<E> head;
-	protected int size;
-	
-	protected void checkIndex(int index) {
-		if(index < 0 ){
-			throw new IllegalArgumentException("The given index is invalid. index: " + index);
-		}else if(index > size){
-			throw new IllegalArgumentException("The given index is out of range. index: " + index + " size:" + size);
-		}
-	}
-	
-	protected void checkValue(E value) {
-		if(value == null) {
-			throw new NullPointerException("Given value is null.");
-		}
-	}
-	
-	protected void checkSize() {
-		if(size == 0) {
-			throw new NoSuchElementException("List is empty.");
-		}
-	}
+public class SingleLinkedList<E> extends AbstractLinkedList<E> {
 	
 	public SingleLinkedList() {
 		head = null;
@@ -70,14 +43,7 @@ public class SingleLinkedList<E> implements Iterable<E> {
 		}
 	}
 	
-	public int size() {
-		return this.size;
-	}
-	
-	public boolean isEmpty() {
-		return size == 0;
-	}
-	
+	@Override
 	public boolean contains(E value) {
 		if(head == null) {
 			return false;
@@ -92,11 +58,13 @@ public class SingleLinkedList<E> implements Iterable<E> {
 		return false;
 	}
 	
+	@Override
 	public E peek() {
 		checkSize();
 		return head.value;
 	}
 	
+	@Override
 	public E peekTail() {
 		checkSize();
 		ListNode<E> pointer = head;
@@ -106,6 +74,7 @@ public class SingleLinkedList<E> implements Iterable<E> {
 		return pointer.value;
 	}
 	
+	@Override
 	public E peekAt(int index) {
 		if(size() == 0) {
 			throw new IndexOutOfBoundsException("index: " + index + " size: " + size);
@@ -119,11 +88,13 @@ public class SingleLinkedList<E> implements Iterable<E> {
 		return node.value;
 	}
 	
+	@Override
 	public void clear() {
 		head = null;
 		size = 0;
 	}
 	
+	@Override
 	public void addToFront(E value) {
 		checkValue(value);
 		if(head == null) {
@@ -136,6 +107,7 @@ public class SingleLinkedList<E> implements Iterable<E> {
 		size++;
 	}
 	
+	@Override
 	public void addToTail(E value) {
 		checkValue(value);
 		if(head == null) {
@@ -150,6 +122,7 @@ public class SingleLinkedList<E> implements Iterable<E> {
 		size++;
 	}
 	
+	@Override
 	public void insertAt(E value, int index) {
 		checkValue(value);
 		if(head == null && index == 0) {
@@ -174,14 +147,17 @@ public class SingleLinkedList<E> implements Iterable<E> {
 		size++;
 	}
 	
+	@Override
 	public E removeFirst(){
 		return removeAt(0);
 	}
 	
+	@Override
 	public E removeTail(){
 		return removeAt(size -1);
 	}
 	
+	@Override
 	public E removeAt(int index){
 		checkSize();
 		if(index >= size || index < 0) {
@@ -206,6 +182,7 @@ public class SingleLinkedList<E> implements Iterable<E> {
 		return value;
 	}
 	
+	@Override
 	public boolean remove(E value) {
 		checkSize();
 		checkValue(value);
@@ -231,6 +208,7 @@ public class SingleLinkedList<E> implements Iterable<E> {
 		return false;
 	}
 	
+	@Override
 	public void reverse() {
 		ListNode<E> current = head;
 		ListNode<E> next = null;
@@ -245,7 +223,7 @@ public class SingleLinkedList<E> implements Iterable<E> {
 		head = prev;
 	}
 	
-	
+	@Override
 	public void addAll(Iterable<? extends E> src) {
 		ListNode<E> p = head;
 		while(p != null && p.next != null) {
@@ -263,6 +241,7 @@ public class SingleLinkedList<E> implements Iterable<E> {
 		}
 	}
 	
+	@Override
 	public void addAll(E[] array) {
 		ListNode<E> p = head;
 		while(p != null && p.next != null) {
@@ -278,57 +257,6 @@ public class SingleLinkedList<E> implements Iterable<E> {
 			}
 			size++;
 		}
-	}
-	
-	public E[] toArray(E[] array){
-		if(array.length < size){
-			throw new IllegalArgumentException("The lenght of the array is less than the size of the RingArray.");
-		}
-		Object[] src = new Object[size];
-		for(int i=0; i<size; i++){
-			src[i] = this.peekAt(i);
-		}
-		System.arraycopy(src, 0, array, 0, size);
-		src = null;
-		return array;
-	}
-	
-	public void toCollection(Collection<? super E> dst){
-		for(int i=0; i<size; i++){
-			dst.add((E)peekAt(i));
-		}
-	}
-	
-	public Stream<E> stream() {
-		Builder<E> builder = Stream.builder();
-		for(E value: this) {
-			builder.add(value);
-		}
-		return builder.build();
-	}
-	
-	@Override
-	public String toString(){
-		StringBuffer sb = new StringBuffer();
-		sb.append("size: ");
-		sb.append(size);
-		sb.append("\n");
-		int index = 0;
-		ListNode<E> pointer = head;
-		while(pointer != null){
-			sb.append("index: ");
-			sb.append(index++);
-			sb.append(" - ");
-			sb.append(pointer.value().toString());
-			sb.append("\n");
-			pointer = pointer.next();
-		}
-		return sb.toString();
-	}
-
-	@Override
-	public Iterator<E> iterator() {
-		return new LinkedListIterator<E>(head);
 	}
 	
 	public void insertionSort(Comparator<E> c) {
@@ -349,6 +277,7 @@ public class SingleLinkedList<E> implements Iterable<E> {
         dummy = null;
     }
 	
+	@Override
 	public void removeDuplicates(Comparator<E> c){
 		if(head == null || head.next == null) {
 			return;
