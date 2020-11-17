@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 
-
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -378,4 +378,113 @@ public class SingleLinkedListTest {
 			assertEquals(itr.next(), testCase.get(i++));
 		}
 	}
+	
+	@Test
+	public void testInsertionSort() {
+		Integer[] testCase = ArrayTestUtils.strToIntegerArray("[5,3,1,2,34,6,3,24,6,9]");
+		list = new SingleLinkedList<>(testCase);
+		list.insertionSort((a,b) -> Integer.compare(a, b));
+		Arrays.sort(testCase);
+		for(int i=0; i<testCase.length; i++) {
+			assertEquals(testCase[i], list.peekAt(i));
+		}
+		testCase = ArrayTestUtils.strToIntegerArray("[]");
+		list = new SingleLinkedList<>(testCase);
+		list.insertionSort((a,b) -> Integer.compare(a, b));
+		Arrays.sort(testCase);
+		for(int i=0; i<testCase.length; i++) {
+			assertEquals(testCase[i], list.peekAt(i));
+		}
+		testCase = ArrayTestUtils.strToIntegerArray("[1]");
+		list = new SingleLinkedList<>(testCase);
+		list.insertionSort((a,b) -> Integer.compare(a, b));
+		Arrays.sort(testCase);
+		for(int i=0; i<testCase.length; i++) {
+			assertEquals(testCase[i], list.peekAt(i));
+		}
+		testCase = ArrayTestUtils.strToIntegerArray("[1,2]");
+		list = new SingleLinkedList<>(testCase);
+		list.insertionSort((a,b) -> Integer.compare(a, b));
+		Arrays.sort(testCase);
+		for(int i=0; i<testCase.length; i++) {
+			assertEquals(testCase[i], list.peekAt(i));
+		}
+	}
+	
+	@Test
+	public void testRemoveDuplicates() {
+		Integer[] testCase = ArrayTestUtils.strToIntegerArray("[5,3,1,2,34,6,3,24,6,9]");
+		list = new SingleLinkedList<>(testCase);
+		list.removeDuplicates((a,b) -> Integer.compare(a, b));
+		Set<Integer> set = new HashSet<>();
+		for(int n : list) {
+			assertFalse(set.contains(n));
+		}
+	}
+	
+	@Test
+	public void testBubbleSort() {
+		Integer[] testCase = ArrayTestUtils.strToIntegerArray("[5,3,1,2,34,6,3,24,6,9]");
+		list = new SingleLinkedList<>(testCase);
+		list.bubbleSort((a,b) -> Integer.compare(a, b));
+		Arrays.sort(testCase);
+		for(int i=0; i<testCase.length; i++) {
+			assertEquals(testCase[i], list.peekAt(i));
+		}
+		testCase = ArrayTestUtils.strToIntegerArray("[]");
+		list = new SingleLinkedList<>(testCase);
+		list.bubbleSort((a,b) -> Integer.compare(a, b));
+		Arrays.sort(testCase);
+		for(int i=0; i<testCase.length; i++) {
+			assertEquals(testCase[i], list.peekAt(i));
+		}
+		testCase = ArrayTestUtils.strToIntegerArray("[1]");
+		list = new SingleLinkedList<>(testCase);
+		list.bubbleSort((a,b) -> Integer.compare(a, b));
+		Arrays.sort(testCase);
+		for(int i=0; i<testCase.length; i++) {
+			assertEquals(testCase[i], list.peekAt(i));
+		}
+		testCase = ArrayTestUtils.strToIntegerArray("[1,2]");
+		list = new SingleLinkedList<>(testCase);
+		list.bubbleSort((a,b) -> Integer.compare(a, b));
+		Arrays.sort(testCase);
+		for(int i=0; i<testCase.length; i++) {
+			assertEquals(testCase[i], list.peekAt(i));
+		}
+	}
+	
+	@Test
+	public void testMergeSort() {
+		Integer[] testCase = ArrayTestUtils.strToIntegerArray("[5,3,1,2,34,6,3,24,6,9]");
+		list = new SingleLinkedList<>(testCase);
+		list.mergeSort((a,b) -> Integer.compare(a, b));
+		Arrays.sort(testCase);
+		for(int i=0; i<testCase.length; i++) {
+			assertEquals(testCase[i], list.peekAt(i));
+		}
+		testCase = ArrayTestUtils.strToIntegerArray("[]");
+		list = new SingleLinkedList<>(testCase);
+		list.mergeSort((a,b) -> Integer.compare(a, b));
+		Arrays.sort(testCase);
+		for(int i=0; i<testCase.length; i++) {
+			assertEquals(testCase[i], list.peekAt(i));
+		}
+		testCase = ArrayTestUtils.strToIntegerArray("[1]");
+		list = new SingleLinkedList<>(testCase);
+		list.mergeSort((a,b) -> Integer.compare(a, b));
+		Arrays.sort(testCase);
+		for(int i=0; i<testCase.length; i++) {
+			assertEquals(testCase[i], list.peekAt(i));
+		}
+		testCase = ArrayTestUtils.strToIntegerArray("[1,2]");
+		list = new SingleLinkedList<>(testCase);
+		list.mergeSort((a,b) -> Integer.compare(a, b));
+		Arrays.sort(testCase);
+		for(int i=0; i<testCase.length; i++) {
+			assertEquals(testCase[i], list.peekAt(i));
+		}
+	}
+	
+	
 }
