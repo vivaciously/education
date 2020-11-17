@@ -308,6 +308,7 @@ public class SingleLinkedList<E> extends AbstractLinkedList<E> {
         }
     }
 	
+	@Override
 	public void mergeSort(Comparator<E> c) {
 		head = mergeSort(head, c);
 	}

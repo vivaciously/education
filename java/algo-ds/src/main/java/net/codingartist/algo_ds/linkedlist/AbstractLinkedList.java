@@ -48,7 +48,7 @@ public abstract class AbstractLinkedList<E> implements Iterable<E> {
 	public abstract boolean remove(E value);
 	public abstract void reverse();
 	public abstract void removeDuplicates(Comparator<E> c);
-	
+	public abstract void mergeSort(Comparator<E> c);
 	
 	public int size() {
 		return this.size;

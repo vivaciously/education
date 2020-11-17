@@ -14,6 +14,18 @@ public class LinkedList<E> extends AbstractLinkedList<E> {
 		tail.prev = head;
 		size = 0;
 	}
+	
+	public LinkedList(E value) {
+		
+	}
+	
+	public LinkedList(Iterable<? extends E> src) {
+		
+	}
+	
+	public LinkedList(E[] array) {
+		
+	}
 
 	@Override
 	public void addAll(Iterable<? extends E> src) {
@@ -107,6 +119,12 @@ public class LinkedList<E> extends AbstractLinkedList<E> {
 
 	@Override
 	public void removeDuplicates(Comparator<E> c) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void mergeSort(Comparator<E> c) {
 		// TODO Auto-generated method stub
 		
 	}
