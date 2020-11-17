@@ -8,7 +8,7 @@ public class StreamMedianQueue {
 	protected PriorityQueue<Integer> left = new PriorityQueue<>(Collections.reverseOrder());
 	protected PriorityQueue<Integer> right = new PriorityQueue<>();
 	
-	public void add(int n) {
+	public void offer(int n) {
 		left.offer(n);
 		right.offer(left.poll());
 		if(left.size() < right.size()) {
