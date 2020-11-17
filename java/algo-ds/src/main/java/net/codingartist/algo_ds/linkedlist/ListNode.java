@@ -1,14 +1,24 @@
 package net.codingartist.algo_ds.linkedlist;
 
-public class ListNode<E> extends SListNode<E> {
-
-	protected SListNode<E> prev;
+public class SListNode<E> {
+	protected SListNode<E> next;
+	protected E value;
 	
-	public ListNode(E value) {
-		super(value);
+	protected SListNode() {
+		next = null;
+		value = null;
 	}
 	
-	public SListNode<E> prev() {
-		return prev;
+	
+	public SListNode(E value) {
+		this.value = value;
+	}
+	
+	public E value() {
+		return this.value;
+	}
+	
+	public SListNode<E> next() {
+		return next;
 	}
 }
