@@ -3,6 +3,8 @@ package net.codingartist.algo_ds.design;
 import java.util.Collections;
 import java.util.PriorityQueue;
 
+import net.codingartist.algo_ds.exceptions.EmptyDataStructureException;
+
 public class StreamMedianQueue {
 
 	protected PriorityQueue<Integer> left = new PriorityQueue<>(Collections.reverseOrder());
@@ -30,6 +32,9 @@ public class StreamMedianQueue {
 	}
 	
 	public double median() {
+		if(size() == 0) {
+			throw new EmptyDataStructureException("StreamMedianQueue is empty");
+		}
 		if((size() & 1) == 0) {
 			return (double)(left.peek() + (long)right.peek()) * 0.5;
 		} else {
