@@ -11,9 +11,14 @@ public class ListNode<E> {
 		prev = null;
 	}
 	
-	
 	public ListNode(E value) {
 		this.value = value;
+	}
+	
+	public ListNode(E value, ListNode<E> next, ListNode<E> prev) {
+		this.value = value;
+		this.next = next;
+		this.prev = prev;
 	}
 	
 	public E value() {
