@@ -222,12 +222,56 @@ public class LinkedListTest {
 	
 	@Test
 	public void testAddToFront() {
-		
+		list = new LinkedList<>();
+		assertThrows(NullPointerException.class, () -> {
+			Integer val = null;
+			list.addToFront(val);
+		});
+		list.addToFront(0);
+		assertTrue(list.peek() == 0);
+		assertTrue(list.size() == 1);
+		list.addToFront(1);
+		assertTrue(list.peek() == 1);
+		assertTrue(list.size() == 2);
+		list.addToFront(2);
+		assertTrue(list.peek() == 2);
+		assertTrue(list.size() == 3);
+		for(int i=0; i<3; i++) {
+			assertTrue(list.peekAt(i) == 2 -i);
+		}
 	}
 	
 	@Test
 	public void testAddToTail() {
+		list = new LinkedList<>();
+		assertThrows(NullPointerException.class, () -> {
+			Integer val = null;
+			list.addToTail(val);
+		});
+		list.addToTail(0);
+		assertTrue(list.peek() == 0);
+		assertTrue(list.peekTail() == 0);
+		assertTrue(list.peekAt(0) == 0);
+		assertTrue(list.size() == 1);
 		
+		list.addToTail(1);
+		assertTrue(list.peek() == 0);
+		assertTrue(list.peekTail() == 1);
+		assertTrue(list.peekAt(0) == 0);
+		assertTrue(list.peekAt(1) == 1);
+		assertTrue(list.size() == 2);
+		
+		list.addToTail(2);
+		assertTrue(list.peek() == 0);
+		assertTrue(list.peekTail() == 2);
+		assertTrue(list.peekAt(0) == 0);
+		assertTrue(list.peekAt(1) == 1);
+		assertTrue(list.peekAt(2) == 2);
+		assertTrue(list.size() == 3);
+		
+		for(int i=0; i<3; i++) {
+			assertTrue(list.peekAt(i) == i);
+		}
 	}
 	
 	@Test
@@ -270,6 +314,11 @@ public class LinkedListTest {
 	}
 	
 	@Test
+	public void testUpdateMap() {
+		
+	}
+	
+	@Test
 	public void testFindNodeAt() {
 		List<Integer> testCase = ArrayTestUtils.strToIntegerList("[1,3,3,2,34,6,78,24,6,9]");
 		list = new LinkedList<>(testCase);
@@ -302,11 +351,6 @@ public class LinkedListTest {
 		list.reverse();
 		assertEquals(list.findNodeAt(3).value, 1);
 		assertEquals(list.findNodeAt(0).value, 4);
-	}
-	
-	@Test
-	public void testUpdateMap() {
-		
 	}
 	
 	@Test
