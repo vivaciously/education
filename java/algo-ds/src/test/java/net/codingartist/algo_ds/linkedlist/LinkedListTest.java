@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -108,7 +107,35 @@ public class LinkedListTest {
 	
 	@Test
 	public void testPeek() {
+		List<Integer> testCase = ArrayTestUtils.strToIntegerList("[1,3,3,2]");
+		list = new LinkedList<>(testCase);
+		assertTrue(list.size() == 4);
+		assertTrue(list.peek() == 1);
+		assertTrue(list.remove(1));
+		assertTrue(list.peek() == 3);
+		list.removeAllDuplicatedElements();
+		assertTrue(list.size == 1);
+		assertTrue(list.peek() == 2);
+		assertTrue(list.removeFirst() == 2);
+		assertTrue(list.size == 0);
+		list.addToTail(90);
+		assertTrue(list.size == 1);
+		assertTrue(list.peek() == 90);
+		list.addToTail(67);
+		assertTrue(list.peek() == 90);
+		list.addToFront(23);
+		assertFalse(list.peek() == 90);
+		assertTrue(list.peek() == 23);
+		assertTrue(list.size == 3);
 		
+		assertTrue(list.removeTail() == 67);
+		assertTrue(list.removeFirst() == 23);
+		assertTrue(list.peek() == 90);
+		assertTrue(list.size == 1);
+		assertTrue(list.removeFirst() == 90);
+		assertThrows(NoSuchElementException.class, () -> {
+			list.peek();
+		});
 	}
 	
 	@Test
@@ -229,6 +256,28 @@ public class LinkedListTest {
 		int i = 0;
 		while(itr.hasNext()) {
 			assertEquals(itr.next(), testCase.get(i++));
+		}
+	}
+	
+	@Test
+	public void testToArray() {
+		List<Integer> testCase = ArrayTestUtils.strToIntegerList("[1,3,5,2,34,6,78,24,6,9]");
+		list = new LinkedList<>(testCase);
+		Integer[] results = new Integer[testCase.size()];
+		list.toArray(results);
+		for(int i=0; i<testCase.size(); i++) {
+			assertEquals(results[i], testCase.get(i));
+		}
+	}
+	
+	@Test
+	public void testToCollection() {
+		List<Integer> testCase = ArrayTestUtils.strToIntegerList("[1,3,5,2,34,6,78,24,6,9]");
+		list = new LinkedList<>(testCase);
+		Set<Integer> set = new HashSet<>();
+		list.toCollection(set);
+		for(int n : testCase) {
+			assertTrue(set.contains(n));
 		}
 	}
 	
