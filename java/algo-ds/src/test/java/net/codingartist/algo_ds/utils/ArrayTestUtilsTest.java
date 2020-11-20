@@ -52,6 +52,12 @@ public class ArrayTestUtilsTest {
 		assertThrows(NullPointerException.class, () -> {
 			ArrayTestUtils.strToIntArray(null);
 		});
+		
+		input = "[-1,-1,-1]";
+		result = ArrayTestUtils.strToIntArray(input);
+		for(int i=0; i<result.length; i++) {
+			assertTrue(result[i] == -1);
+		}
 	}
 	
 	@Test

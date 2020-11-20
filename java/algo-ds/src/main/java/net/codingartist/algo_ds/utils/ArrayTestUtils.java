@@ -28,7 +28,7 @@ public class ArrayTestUtils {
 			return new int[] {};
 		}
 		for(char c : str.toCharArray()) {
-			if(!(Character.isDigit(c) ||  c == ',')) {
+			if(!(Character.isDigit(c) ||  c == ',' || c == '-')) {
 				throw new IllegalArgumentException("The format of str is '[a,b,c]' where it starts with '[' and ends with ']'"
 						+ "and 'a' 'b' 'c' are int values and separated by a comma.");
 			}
