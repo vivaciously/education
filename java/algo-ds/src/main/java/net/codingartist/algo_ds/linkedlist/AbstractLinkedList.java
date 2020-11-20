@@ -90,22 +90,4 @@ public abstract class AbstractLinkedList<E> implements Iterable<E> {
 		return new LinkedListIterator<E>(head);
 	}
 	
-	@Override
-	public String toString(){
-		StringBuffer sb = new StringBuffer();
-		sb.append("size: ");
-		sb.append(size);
-		sb.append("\n");
-		int index = 0;
-		ListNode<E> pointer = head;
-		while(pointer != null){
-			sb.append("index: ");
-			sb.append(index++);
-			sb.append(" - ");
-			sb.append(pointer.value().toString());
-			sb.append("\n");
-			pointer = pointer.next();
-		}
-		return sb.toString();
-	}
 }
