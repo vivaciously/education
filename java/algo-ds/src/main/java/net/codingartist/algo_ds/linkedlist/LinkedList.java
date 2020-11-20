@@ -22,6 +22,7 @@ public class LinkedList<E> extends AbstractLinkedList<E> {
 	}
 	
 	public LinkedList(E value) {
+		checkValue(value);
 		head = new ListNode<>();
 		tail = new ListNode<>();
 		
@@ -46,6 +47,7 @@ public class LinkedList<E> extends AbstractLinkedList<E> {
 		ListNode<E> p = head;
 		ListNode<E> prev = null;
 		for(E val : src) {
+			checkValue(val, "Given src contains Null.");
 			map.putIfAbsent(val, new SingleLinkedList<>());
 			prev = p;
 			p.next = new ListNode<>(val);
@@ -66,12 +68,13 @@ public class LinkedList<E> extends AbstractLinkedList<E> {
 		
 		ListNode<E> p = head;
 		ListNode<E> prev = null;
-		for(E val : array) {
-			map.putIfAbsent(val, new SingleLinkedList<>());
+		for(int i=0; i<array.length; i++) {
+			checkValue(array[i], "Given array contains Null at index: " + i );
+			map.putIfAbsent(array[i], new SingleLinkedList<>());
 			prev = p;
-			p.next = new ListNode<>(val);
+			p.next = new ListNode<>(array[i]);
 			p = p.next;
-			map.get(val).addToFront(p);
+			map.get(array[i]).addToFront(p);
 			p.prev = prev;
 			prev.next = p;
 			size++;
@@ -86,6 +89,7 @@ public class LinkedList<E> extends AbstractLinkedList<E> {
 			ListNode<E> p = head;
 			ListNode<E> prev = null;
 			for(E val : src) {
+				checkValue(val, "Given src contains Null.");
 				map.putIfAbsent(val, new SingleLinkedList<>());
 				prev = p;
 				p.next = new ListNode<>(val);
@@ -101,6 +105,7 @@ public class LinkedList<E> extends AbstractLinkedList<E> {
 			ListNode<E> p = tail.prev;
 			ListNode<E> prev = null;
 			for(E val : src) {
+				checkValue(val, "Given src contains Null.");
 				map.putIfAbsent(val, new SingleLinkedList<>());
 				prev = p;
 				p.next = new ListNode<>(val);
@@ -121,12 +126,13 @@ public class LinkedList<E> extends AbstractLinkedList<E> {
 		if(size == 0) {
 			ListNode<E> p = head;
 			ListNode<E> prev = null;
-			for(E val : array) {
-				map.putIfAbsent(val, new SingleLinkedList<>());
+			for(int i=0; i<array.length; i++) {
+				checkValue(array[i], "Given array contains Null at index: " + i );
+				map.putIfAbsent(array[i], new SingleLinkedList<>());
 				prev = p;
-				p.next = new ListNode<>(val);
+				p.next = new ListNode<>(array[i]);
 				p = p.next;
-				map.get(val).addToFront(p);
+				map.get(array[i]).addToFront(p);
 				p.prev = prev;
 				prev.next = p;
 				size++;
@@ -136,12 +142,13 @@ public class LinkedList<E> extends AbstractLinkedList<E> {
 		} else {
 			ListNode<E> p = tail.prev;
 			ListNode<E> prev = null;
-			for(E val : array) {
-				map.putIfAbsent(val, new SingleLinkedList<>());
+			for(int i=0; i<array.length; i++) {
+				checkValue(array[i], "Given array contains Null at index: " + i );
+				map.putIfAbsent(array[i], new SingleLinkedList<>());
 				prev = p;
-				p.next = new ListNode<>(val);
+				p.next = new ListNode<>(array[i]);
 				p = p.next;
-				map.get(val).addToFront(p);
+				map.get(array[i]).addToFront(p);
 				p.prev = prev;
 				prev.next = p;
 				size++;
@@ -171,6 +178,7 @@ public class LinkedList<E> extends AbstractLinkedList<E> {
 
 	@Override
 	public boolean contains(E value) {
+		checkValue(value);
 		if(map.containsKey(value)) {
 			return true;
 		}
@@ -223,6 +231,7 @@ public class LinkedList<E> extends AbstractLinkedList<E> {
 
 	@Override
 	public void insertAt(E value, int index) {
+		checkValue(value);
 		ListNode<E> n = findNodeAt(index);
 		ListNode<E> newNode = new ListNode<>(value);
 		ListNode<E> prev = n.prev;
@@ -337,9 +346,21 @@ public class LinkedList<E> extends AbstractLinkedList<E> {
 	}
 
 	@Override
-	public void removeDuplicates(Comparator<E> c) {//TODO
-		// TODO Auto-generated method stub
-		
+	public void removeDuplicates(Comparator<E> c) {
+		if(size <= 1) {
+			return;
+		}
+		mergeSort(c);
+		ListNode<E> cur = head.next;
+		while(cur != null && cur.next != tail) {
+			if(c.compare(cur.value(), cur.next.value) == 0) {
+				ListNode<E> next = cur.next.next;
+				remove(cur.next);
+				cur = next;
+			} else {
+				cur = cur.next;
+			}
+		}
 	}
 	
 	public void removeAllDuplicatedElements() {
@@ -365,19 +386,71 @@ public class LinkedList<E> extends AbstractLinkedList<E> {
 	}
 
 	@Override
-	public void mergeSort(Comparator<E> c) {//TODO
+	public void mergeSort(Comparator<E> c) {
 		if(size <= 1) {
 			return;
 		}
+		ListNode<E> start = head.next;
+		head.next = null;
+		tail.prev.next = null;
+		tail.prev = null;
+		ListNode<E> sorted = mergeSort(start, c);
 		
+		//fix the pointers
+		head.next = sorted;
+		sorted.prev = head;
+		ListNode<E> p = head.next;
+		while(p.next != null) {
+			p = p.next;
+		}
+		tail.prev = p;
+		p.next = tail;
 	}
 	
-	protected ListNode<E> mergeSort(ListNode<E> head, Comparator<E> c) {//TODO
-		return null;
+	private ListNode<E> mergeSort(ListNode<E> n, Comparator<E> c) {
+		if(n == null || n.next == null) {
+			return n;
+		}
+		ListNode<E> slow = n;
+		ListNode<E> fast = n;
+		ListNode<E> prev = null;
+		while(fast != null && fast.next != null) {
+			prev = slow;
+			slow = slow.next;
+			fast = fast.next.next;
+		}
+		prev.next = null;
+		slow.prev = null;
+		
+		return merge(mergeSort(n,c), mergeSort(slow,c), c);
 	}
 	
-	protected ListNode<E> merge(ListNode<E> l1, ListNode<E> l2) {//TODO
-		return null;
+	private ListNode<E> merge(ListNode<E> l1, ListNode<E> l2, Comparator<E> c) {
+		ListNode<E> dummy = new ListNode<>();
+		ListNode<E> p = dummy;
+		while(l1 != null && l2 != null) {
+			if(c.compare(l1.value(), l2.value()) < 0) {
+				p.next = l1;
+				l1.prev = p;
+				l1 = l1.next;
+			} else {
+				p.next = l2;
+				l2.prev = p;
+				l2 = l2.next;
+			}
+			p = p.next;
+		}
+		if(l1 != null) {
+			p.next = l1;
+			l1.prev = p;
+		}
+		if(l2 != null) {
+			p.next = l2;
+			l2.prev = p;
+		}
+		p = dummy.next;
+		dummy = null;
+		return p;
 	}
 	
 	@Override
@@ -393,7 +466,11 @@ public class LinkedList<E> extends AbstractLinkedList<E> {
 				sb.append("index: ");
 				sb.append(index++);
 				sb.append(" - ");
-				sb.append(pointer.value().toString());
+				if(pointer.value() != null) {
+					sb.append(pointer.value().toString());
+				} else {
+					sb.append(pointer.value());
+				}
 				sb.append("\n");
 				pointer = pointer.next();
 			}

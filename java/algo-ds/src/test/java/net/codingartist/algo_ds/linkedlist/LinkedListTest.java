@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -19,6 +20,10 @@ public class LinkedListTest {
 
 	@Test
 	public void testSingleValueConstructor() {
+		assertThrows(NullPointerException.class, () -> {
+			Integer val = null;
+			list = new LinkedList<>(val);
+		});
 		list = new LinkedList<>(89);
 		assertTrue(list.size == 1);
 		assertTrue(list.peek() == 89);
@@ -37,6 +42,13 @@ public class LinkedListTest {
 			assertTrue(list.contains(n));
 		}
 		assertTrue(list.map.get(6).size() == 1);
+		List<Integer> anotherTestCase = ArrayTestUtils.strToIntegerList("[1,3,5,2,34,6,78,24,6,9]");
+		anotherTestCase.add(null);
+		list.clear();
+		list = null;
+		assertThrows(NullPointerException.class, () -> {
+			list = new LinkedList<>(anotherTestCase);
+		});
 	}
 	
 	@Test
@@ -45,6 +57,12 @@ public class LinkedListTest {
 		list = new LinkedList<>(testCase);
 		assertTrue(list.size() == testCase.length);
 		assertTrue(list.map.get(3).size() == 2);
+		list.clear();
+		list = null;
+		testCase[4] = null;
+		assertThrows(NullPointerException.class, () -> {
+			list = new LinkedList<>(testCase);
+		});
 	}
 	
 	@Test
@@ -63,6 +81,11 @@ public class LinkedListTest {
 		for(int i=0; i<testCase.size(); i++) {
 			assertEquals(list.peekAt(i), testCase.get(i));
 		}
+		List<Integer> yetAnotherTestCase = ArrayTestUtils.strToIntegerList("[1,3,5,24,6,9]");
+		yetAnotherTestCase.add(null);
+		assertThrows(NullPointerException.class, () -> {
+			list.addAll(yetAnotherTestCase);
+		});
 	}
 	
 	@Test
@@ -77,6 +100,10 @@ public class LinkedListTest {
 		for(int i=testCase.length -1; i >= 0; i--) {
 			assertEquals(testCase[i], list.peekAt(i));
 		}
+		testCase[3] = null;
+		assertThrows(NullPointerException.class, () -> {
+			list.addAll(testCase);
+		});
 	}
 	
 	@Test
@@ -215,7 +242,13 @@ public class LinkedListTest {
 	
 	@Test
 	public void testRemoveDuplicates() {
-		
+		Integer[] testCase = ArrayTestUtils.strToIntegerArray("[5,3,1,2,34,6,3,24,6,9]");
+		list = new LinkedList<>(testCase);
+		list.removeDuplicates((a,b) -> Integer.compare(a, b));
+		Set<Integer> set = new HashSet<>();
+		for(int n : list) {
+			assertFalse(set.contains(n));
+		}
 	}
 	
 	@Test
@@ -233,12 +266,34 @@ public class LinkedListTest {
 	
 	@Test
 	public void testMergeSort() {
-		
-	}
-	
-	@Test
-	public void testMerge() {
-		
+		Integer[] testCase = ArrayTestUtils.strToIntegerArray("[5,3,1,2,34,6,3,24,6,9]");
+		list = new LinkedList<>(testCase);
+		list.mergeSort((a,b) -> Integer.compare(a, b));
+		Arrays.sort(testCase);
+		for(int i=0; i<testCase.length; i++) {
+			assertEquals(testCase[i], list.peekAt(i));
+		}
+		testCase = ArrayTestUtils.strToIntegerArray("[]");
+		list = new LinkedList<>(testCase);
+		list.mergeSort((a,b) -> Integer.compare(a, b));
+		Arrays.sort(testCase);
+		for(int i=0; i<testCase.length; i++) {
+			assertEquals(testCase[i], list.peekAt(i));
+		}
+		testCase = ArrayTestUtils.strToIntegerArray("[1]");
+		list = new LinkedList<>(testCase);
+		list.mergeSort((a,b) -> Integer.compare(a, b));
+		Arrays.sort(testCase);
+		for(int i=0; i<testCase.length; i++) {
+			assertEquals(testCase[i], list.peekAt(i));
+		}
+		testCase = ArrayTestUtils.strToIntegerArray("[1,2]");
+		list = new LinkedList<>(testCase);
+		list.mergeSort((a,b) -> Integer.compare(a, b));
+		Arrays.sort(testCase);
+		for(int i=0; i<testCase.length; i++) {
+			assertEquals(testCase[i], list.peekAt(i));
+		}
 	}
 	
 	@Test
