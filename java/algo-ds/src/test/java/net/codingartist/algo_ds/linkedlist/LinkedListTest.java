@@ -50,7 +50,20 @@ public class LinkedListTest {
 	
 	@Test
 	public void testAddAllWithIterable() {
-		
+		List<Integer> testCase = ArrayTestUtils.strToIntegerList("[1,3,5,2,34,6,78,24,6,9]");
+		list = new LinkedList<>(testCase);
+		assertTrue(list.size() == testCase.size());
+		for(int i=0; i<testCase.size(); i++) {
+			assertEquals(list.peekAt(i), testCase.get(i));
+		}
+		List<Integer> anotherTestCase = ArrayTestUtils.strToIntegerList("[5,6,7]");
+		list.addAll(anotherTestCase);
+		assertTrue(list.size() == testCase.size() + 3);
+		testCase.addAll(anotherTestCase);
+		assertEquals(list.peekTail(), 7);
+		for(int i=0; i<testCase.size(); i++) {
+			assertEquals(list.peekAt(i), testCase.get(i));
+		}
 	}
 	
 	@Test
@@ -158,7 +171,15 @@ public class LinkedListTest {
 	
 	@Test
 	public void testRemoveAllDuplicatedElements() {
-		
+		Integer[] testCase = ArrayTestUtils.strToIntegerArray("[1,3,5,2,34,6,3,24,6,9]");
+		list = new LinkedList<>(testCase);
+		assertTrue(list.size() == testCase.length);
+		assertTrue(list.contains(3));
+		assertTrue(list.contains(6));
+		list.removeAllDuplicatedElements();
+		assertFalse(list.contains(3));
+		assertFalse(list.contains(6));
+		assertTrue(list.size() == testCase.length - 4);
 	}
 	
 	@Test

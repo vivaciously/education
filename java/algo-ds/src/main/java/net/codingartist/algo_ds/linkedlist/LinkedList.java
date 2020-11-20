@@ -2,7 +2,9 @@ package net.codingartist.algo_ds.linkedlist;
 
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 public class LinkedList<E> extends AbstractLinkedList<E> {
 
@@ -341,17 +343,24 @@ public class LinkedList<E> extends AbstractLinkedList<E> {
 	
 	public void removeAllDuplicatedElements() {
 		checkSize();
+		Set<E> keys = new HashSet<>();
 		for(SingleLinkedList<ListNode<E>> sl : map.values()) {
 			if(sl.size() > 1) {
 				E key = sl.peek().value;
 				for(ListNode<E> n : sl) {
 					remove(n);
+					keys.add(key);
 				}
-				sl.clear();
-				sl = null;
-				map.remove(key);
 			}
 		}
+		for(E key : keys) {
+			SingleLinkedList<ListNode<E>> sl = map.get(key);
+			sl.clear();
+			sl = null;
+			map.remove(key);
+		}
+		keys.clear();
+		keys = null;
 	}
 
 	@Override
