@@ -24,6 +24,12 @@ public class SingleLinkedListTest {
 		Set<Integer> testCase = new HashSet<>(ArrayTestUtils.strToIntegerList("[1,3,5,2,34,6,78,24,6,9]"));
 		list = new SingleLinkedList<>(testCase);
 		assertTrue(list.size() == testCase.size());
+		list.clear();
+		List<Integer> anotherTestCase = ArrayTestUtils.strToIntegerList("[1,3,5,2,34,6,78,24,6,9]");
+		anotherTestCase.add(null);
+		assertThrows(NullPointerException.class, () -> {
+			list = new SingleLinkedList<>(anotherTestCase);
+		});
 	}
 	
 	@Test
@@ -31,11 +37,18 @@ public class SingleLinkedListTest {
 		Integer[] testCase = ArrayTestUtils.strToIntegerArray("[1,3,5,2,34,6,3,24,6,9]");
 		list = new SingleLinkedList<>(testCase);
 		assertTrue(list.size() == testCase.length);
+		testCase[3] = null;
+		assertThrows(NullPointerException.class, () -> {
+			list = new SingleLinkedList<>(testCase);
+		});
 	}
 	
 	@Test
 	public void testContains() {
 		list = new SingleLinkedList<>();
+		assertThrows(NullPointerException.class, () -> {
+			list.contains(null);
+		});
 		assertTrue(list.size() == 0);
 		assertFalse(list.contains(1));
 		list.addToFront(1);
@@ -327,6 +340,12 @@ public class SingleLinkedListTest {
 		for(int n : testCase) {
 			assertTrue(list.contains(n));
 		}
+		list.clear();
+		List<Integer> anotherTestCase = ArrayTestUtils.strToIntegerList("[1,3,5,2,34,6,78,24,6,9]");
+		anotherTestCase.add(null);
+		assertThrows(NullPointerException.class, () -> {
+			list.addAll(anotherTestCase);
+		});
 	}
 	
 	@Test
@@ -343,6 +362,10 @@ public class SingleLinkedListTest {
 		for(int i=0; i<anotherTestCase.length; i++) {
 			assertEquals(anotherTestCase[i], list.peekAt(i + testCase.length));
 		}
+		anotherTestCase[0] = null;
+		assertThrows(NullPointerException.class, () -> {
+			list.addAll(anotherTestCase);
+		});
 	}
 	
 	@Test

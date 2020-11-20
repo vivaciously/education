@@ -12,6 +12,7 @@ public class SingleLinkedList<E> extends AbstractLinkedList<E> {
 	}
 	
 	public SingleLinkedList(E value) {
+		checkValue(value);
 		head = new ListNode<>(value);
 		size++;
 	}
@@ -19,6 +20,7 @@ public class SingleLinkedList<E> extends AbstractLinkedList<E> {
 	public SingleLinkedList(Iterable<? extends E> src){
 		ListNode<E> p = null;
 		for(E data : src){
+			checkValue(data, "Given src contains Null.");
 			if(head == null) { 
 				head = new ListNode<>(data);
 				p = head;
@@ -33,6 +35,7 @@ public class SingleLinkedList<E> extends AbstractLinkedList<E> {
 	public SingleLinkedList(E[] array){
 		ListNode<E> p = null;
 		for(int i=0;  i<array.length; i++){
+			checkValue(array[i], "Given array contains Null at index: " + i );
 			if(head == null) { 
 				head = new ListNode<>(array[i]);
 				p = head;
@@ -45,7 +48,46 @@ public class SingleLinkedList<E> extends AbstractLinkedList<E> {
 	}
 	
 	@Override
+	public void addAll(Iterable<? extends E> src) {
+		ListNode<E> p = head;
+		while(p != null && p.next != null) {
+			p = p.next;
+		}
+		for(E data : src) {
+			checkValue(data, "Given src contains Null.");
+			if(p == null) {
+				head = new ListNode<>(data);
+				p = head;
+			} else {
+				p.next = new ListNode<>(data);
+				p = p.next;
+			}
+			size++;
+		}
+	}
+	
+	@Override
+	public void addAll(E[] array) {
+		ListNode<E> p = head;
+		while(p != null && p.next != null) {
+			p = p.next;
+		}
+		for(int i=0; i<array.length; i++){
+			checkValue(array[i], "Given array contains Null at index: " + i );
+			if(p == null) {
+				head = new ListNode<>(array[i]);
+				p = head;
+			} else {
+				p.next = new ListNode<>(array[i]);
+				p = p.next;
+			}
+			size++;
+		}
+	}
+	
+	@Override
 	public boolean contains(E value) {
+		checkValue(value);
 		if(head == null) {
 			return false;
 		}
@@ -224,42 +266,6 @@ public class SingleLinkedList<E> extends AbstractLinkedList<E> {
 		head = prev;
 	}
 	
-	@Override
-	public void addAll(Iterable<? extends E> src) {
-		ListNode<E> p = head;
-		while(p != null && p.next != null) {
-			p = p.next;
-		}
-		for(E data : src) {
-			if(p == null) {
-				head = new ListNode<>(data);
-				p = head;
-			} else {
-				p.next = new ListNode<>(data);
-				p = p.next;
-			}
-			size++;
-		}
-	}
-	
-	@Override
-	public void addAll(E[] array) {
-		ListNode<E> p = head;
-		while(p != null && p.next != null) {
-			p = p.next;
-		}
-		for(int i=0; i<array.length; i++){
-			if(p == null) {
-				head = new ListNode<>(array[i]);
-				p = head;
-			} else {
-				p.next = new ListNode<>(array[i]);
-				p = p.next;
-			}
-			size++;
-		}
-	}
-	
 	public void insertionSort(Comparator<E> c) {
         ListNode<E> cur = head;
         ListNode<E> dummy = new ListNode<>();
@@ -366,7 +372,11 @@ public class SingleLinkedList<E> extends AbstractLinkedList<E> {
 			sb.append("index: ");
 			sb.append(index++);
 			sb.append(" - ");
-			sb.append(pointer.value().toString());
+			if(pointer.value() != null) {
+				sb.append(pointer.value().toString());
+			} else {
+				sb.append(pointer.value());
+			}
 			sb.append("\n");
 			pointer = pointer.next();
 		}
