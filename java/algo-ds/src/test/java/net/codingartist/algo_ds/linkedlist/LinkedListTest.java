@@ -167,17 +167,57 @@ public class LinkedListTest {
 	
 	@Test
 	public void testPeekTail() {
-		
+		List<Integer> testCase = ArrayTestUtils.strToIntegerList("[1,3,3,2]");
+		list = new LinkedList<>(testCase);
+		assertTrue(list.size() == 4);
+		assertTrue(list.peekTail() == 2);
+		list.addToTail(52);
+		assertTrue(list.peekTail() == 52);
+		assertTrue(list.removeTail() == 52);
+		assertTrue(list.peekTail() == 2);
+		assertTrue(list.removeTail() == 2);
+		assertTrue(list.peekTail() == 3);
+		list.removeAllDuplicatedElements();
+		assertTrue(list.peekTail() == 1);
+		assertTrue(list.removeTail() == 1);
+		assertThrows(NoSuchElementException.class, () -> {
+			list.peekTail();
+		});
 	}
 	
 	@Test
 	public void testContains() {
-		
+		list = new LinkedList<>();
+		assertThrows(NullPointerException.class, () -> {
+			list.contains(null);
+		});
+		List<Integer> testCase = ArrayTestUtils.strToIntegerList("[1,3,3,2]");
+		list.addAll(testCase);
+		assertTrue(list.contains(3));
+		assertFalse(list.contains(4));
+		list.addToFront(5);
+		assertTrue(list.contains(5));
+		list.remove(5);
+		assertFalse(list.contains(5));
+		list.addToTail(5);
+		assertTrue(list.contains(5));
+		list.remove(5);
+		assertFalse(list.contains(5));
+		list.clear();
+		assertFalse(list.contains(1));
 	}
 	
 	@Test
 	public void testClear() {
-		
+		List<Integer> testCase = ArrayTestUtils.strToIntegerList("[1,3,3,2,34,6,78,24,6,9]");
+		list = new LinkedList<>(testCase);
+		assertTrue(list.size() == 10);
+		list.clear();
+		assertTrue(list.size() == 0);
+		assertTrue(list.head.next == list.tail);
+		assertTrue(list.head.prev == null);
+		assertTrue(list.tail.next == null);
+		assertTrue(list.map.size() == 0);
 	}
 	
 	@Test
@@ -192,7 +232,21 @@ public class LinkedListTest {
 	
 	@Test
 	public void testInsertAt() {
+		List<Integer> testCase = ArrayTestUtils.strToIntegerList("[-1,6,8,4,2]");
+		list = new LinkedList<>(testCase);
+		list.insertAt(78, 0);
+		assertTrue(list.peek() == 78);
+		assertTrue(list.peekAt(1) == -1);
+		list.insertAt(56, 1);
+		assertTrue(list.peekAt(1) == 56);
 		
+		assertTrue(list.size() == 7);
+		list.insertAt(98, 7);
+		assertTrue(list.peekAt(7) == 98);
+		assertTrue(list.size() == 8);
+		assertThrows(IllegalArgumentException.class, () -> {
+			list.insertAt(100, 9);
+		});
 	}
 	
 	@Test
@@ -217,7 +271,37 @@ public class LinkedListTest {
 	
 	@Test
 	public void testFindNodeAt() {
-		
+		List<Integer> testCase = ArrayTestUtils.strToIntegerList("[1,3,3,2,34,6,78,24,6,9]");
+		list = new LinkedList<>(testCase);
+		assertTrue(list.size() == 10);
+		assertEquals(list.findNodeAt(0).value, 1);
+		assertThrows(IllegalArgumentException.class, () -> {
+			list.findNodeAt(-1);
+		});
+		assertThrows(IllegalArgumentException.class, () -> {
+			list.findNodeAt(10);
+		});
+		assertEquals(list.findNodeAt(9).value, 9);
+		assertTrue(list.removeFirst() == 1);
+		assertEquals(list.findNodeAt(0).value, 3);
+		assertThrows(IllegalArgumentException.class, () -> {
+			list.findNodeAt(9);
+		});
+		assertEquals(list.findNodeAt(3).value, 34);
+		list.clear();
+		assertThrows(NoSuchElementException.class, () -> {
+			list.findNodeAt(0);
+		});
+		testCase = ArrayTestUtils.strToIntegerList("[1,2,4,3]");
+		list.addAll(testCase);
+		assertEquals(list.findNodeAt(3).value, 3);
+		assertEquals(list.findNodeAt(0).value, 1);
+		list.mergeSort(Integer::compare);
+		assertEquals(list.findNodeAt(3).value, 4);
+		assertEquals(list.findNodeAt(0).value, 1);
+		list.reverse();
+		assertEquals(list.findNodeAt(3).value, 1);
+		assertEquals(list.findNodeAt(0).value, 4);
 	}
 	
 	@Test

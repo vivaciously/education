@@ -187,8 +187,8 @@ public class LinkedList<E> extends AbstractLinkedList<E> {
 
 	@Override
 	public void clear() {
-		head = new ListNode<>();
-		tail = new ListNode<>();
+		head.next = null;
+		tail.prev = null;
 		
 		head.next = tail;
 		tail.prev = head;
@@ -232,15 +232,22 @@ public class LinkedList<E> extends AbstractLinkedList<E> {
 	@Override
 	public void insertAt(E value, int index) {
 		checkValue(value);
-		ListNode<E> n = findNodeAt(index);
-		ListNode<E> newNode = new ListNode<>(value);
-		ListNode<E> prev = n.prev;
-		n.prev = newNode;
-		newNode.next = n;
-		
-		newNode.prev = prev;
-		prev.next = newNode;
-		
+		if(index >= size + 1) {
+			throw new IllegalArgumentException("The given index is out of range. index: " + index + " size:" + size);
+		}
+		if(index < size) {
+			ListNode<E> n = findNodeAt(index);
+			ListNode<E> newNode = new ListNode<>(value);
+			ListNode<E> prev = n.prev;
+			n.prev = newNode;
+			newNode.next = n;
+			
+			newNode.prev = prev;
+			prev.next = newNode;
+			size++;
+		} else if(index == size) {
+			addToTail(value);
+		}
 	}
 
 	@Override
