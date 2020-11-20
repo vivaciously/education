@@ -6,14 +6,21 @@ import java.util.NoSuchElementException;
 public class LinkedListIterator<T> implements Iterator<T> {
 
 	private ListNode<T> itr;
+	private ListNode<T> tail;
 	
 	public LinkedListIterator(ListNode<T> head) {
 		this.itr = head;
+		this.tail = null;
+	}
+	
+	public LinkedListIterator(ListNode<T> head, ListNode<T> tail) {
+		this.itr = head.next;
+		this.tail = tail;
 	}
 	
 	@Override
 	public boolean hasNext() {
-		return itr == null ? false:true;
+		return itr == tail ? false:true;
 	}
 
 	@Override

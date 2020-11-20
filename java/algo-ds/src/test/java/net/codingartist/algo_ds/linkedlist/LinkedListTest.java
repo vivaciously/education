@@ -69,7 +69,8 @@ public class LinkedListTest {
 	@Test
 	public void testAddAllWithArray() {
 		Integer[] testCase = ArrayTestUtils.strToIntegerArray("[1,3,5,2,34,6,3,24,6,9]");
-		list = new LinkedList<>(testCase);
+		list = new LinkedList<>();
+		list.addAll(testCase);
 		assertTrue(list.size() == testCase.length);
 		for(int i=0; i<testCase.length; i++) {
 			assertEquals(testCase[i], list.peekAt(i));
@@ -81,7 +82,28 @@ public class LinkedListTest {
 	
 	@Test
 	public void testPeekAt() {
-		
+		List<Integer> testCase = ArrayTestUtils.strToIntegerList("[1,3,3,2,34,6,78,24,6,9]");
+		list = new LinkedList<>(testCase);
+		assertTrue(list.peekAt(9) == 9);
+		assertThrows(IllegalArgumentException.class, () -> {
+			list.peekAt(10);
+		});
+		assertTrue(list.remove(3));
+		assertTrue(list.peekAt(1) == 3);
+		assertTrue(list.size() == 9);
+		assertThrows(IllegalArgumentException.class, () -> {
+			list.peekAt(9);
+		});
+		assertTrue(list.contains(3));
+		assertTrue(list.remove(3));
+		assertTrue(list.peekAt(1) == 2);
+		assertTrue(list.remove(78));
+		assertTrue(list.peekAt(4) == 24);
+		assertThrows(IllegalArgumentException.class, () -> {
+			list.peekAt(-1);
+		});
+		assertTrue(list.peekAt(0) == 1);
+		assertTrue(list.peek() == 1);
 	}
 	
 	@Test
@@ -190,6 +212,24 @@ public class LinkedListTest {
 	@Test
 	public void testMerge() {
 		
+	}
+	
+	@Test
+	public void testStream() {
+		List<Integer> testCase = ArrayTestUtils.strToIntegerList("[1,3,5,2,34,6,78,24,6,9]");
+		list = new LinkedList<>(testCase);
+		assertEquals(list.stream().count(), testCase.stream().count());
+	}
+	
+	@Test
+	public void testIterator() {
+		List<Integer> testCase = ArrayTestUtils.strToIntegerList("[1,3,5,2,34,6,78,24,6,9]");
+		list = new LinkedList<>(testCase);
+		Iterator<Integer> itr = list.iterator();
+		int i = 0;
+		while(itr.hasNext()) {
+			assertEquals(itr.next(), testCase.get(i++));
+		}
 	}
 	
 }

@@ -1,6 +1,7 @@
 package net.codingartist.algo_ds.linkedlist;
 
 import java.util.Comparator;
+import java.util.Iterator;
 
 
 public class SingleLinkedList<E> extends AbstractLinkedList<E> {
@@ -370,6 +371,11 @@ public class SingleLinkedList<E> extends AbstractLinkedList<E> {
 			pointer = pointer.next();
 		}
 		return sb.toString();
+	}
+	
+	@Override
+	public Iterator<E> iterator() {
+		return new LinkedListIterator<E>(head);
 	}
 	
 }

@@ -49,7 +49,7 @@ public abstract class AbstractLinkedList<E> implements Iterable<E> {
 	public abstract void reverse();
 	public abstract void removeDuplicates(Comparator<E> c);
 	public abstract void mergeSort(Comparator<E> c);
-	
+	public abstract Iterator<E> iterator();
 	public int size() {
 		return this.size;
 	}
@@ -80,14 +80,11 @@ public abstract class AbstractLinkedList<E> implements Iterable<E> {
 	public Stream<E> stream() {
 		Builder<E> builder = Stream.builder();
 		for(E value: this) {
-			builder.add(value);
+			if(value != null) {
+				builder.add(value);
+			}
 		}
 		return builder.build();
-	}
-	
-	@Override
-	public Iterator<E> iterator() {
-		return new LinkedListIterator<E>(head);
 	}
 	
 }

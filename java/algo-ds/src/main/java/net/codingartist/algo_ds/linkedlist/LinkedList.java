@@ -3,6 +3,7 @@ package net.codingartist.algo_ds.linkedlist;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
@@ -398,6 +399,11 @@ public class LinkedList<E> extends AbstractLinkedList<E> {
 			}
 		}
 		return sb.toString();
+	}
+	
+	@Override
+	public Iterator<E> iterator() {
+		return new LinkedListIterator<E>(head, tail);
 	}
 
 }
