@@ -26,6 +26,12 @@ public abstract class AbstractLinkedList<E> implements Iterable<E> {
 		}
 	}
 	
+	protected void checkValue(E value, String msg) {
+		if(value == null) {
+			throw new NullPointerException(msg);
+		}
+	}
+	
 	protected void checkSize() {
 		if(size == 0) {
 			throw new NoSuchElementException("List is empty.");
