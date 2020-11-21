@@ -530,6 +530,9 @@ public class LinkedListTest {
 		while(itr.hasNext()) {
 			assertEquals(itr.next(), testCase.get(i++));
 		}
+		assertThrows(NoSuchElementException.class, () -> {
+			itr.next();
+		});
 	}
 	
 	@Test
