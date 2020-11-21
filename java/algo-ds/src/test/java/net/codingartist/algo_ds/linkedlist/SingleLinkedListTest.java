@@ -509,6 +509,19 @@ public class SingleLinkedListTest {
 		list.addAll(ArrayTestUtils.strToIntegerArray("[1,1,1,1,1,1,1]"));
 		list.removeAllDuplicatedElements();
 		assertTrue(list.size() == 0);
+		
+		list.clear();
+		list.addAll(ArrayTestUtils.strToIntegerArray("[2, 1,1,1,1,1,1,1, 2]"));
+		list.removeAllDuplicatedElements();
+		assertTrue(list.size() == 0);
+		
+		list.clear();
+		list.addAll(ArrayTestUtils.strToIntegerArray("[0,1,2]"));
+		list.removeAllDuplicatedElements();
+		assertTrue(list.size() == 3);
+		for(int i=0; i<list.size(); i++) {
+			assertTrue(list.peekAt(i) == i);
+		}
 	}
 	
 	@Test
