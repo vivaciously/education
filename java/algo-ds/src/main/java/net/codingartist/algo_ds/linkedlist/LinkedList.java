@@ -1,9 +1,11 @@
 package net.codingartist.algo_ds.linkedlist;
 
+import java.util.ArrayDeque;
 import java.util.Comparator;
-import java.util.HashMap;
+import java.util.Deque;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.WeakHashMap;
 
 
 public class LinkedList<E> extends AbstractLinkedList<E> {
@@ -338,7 +340,7 @@ public class LinkedList<E> extends AbstractLinkedList<E> {
 	}
 
 	@Override
-	public void removeDuplicates(Comparator<E> c) {
+	public void sortAndRemoveDuplicates(Comparator<E> c) {
 		if(size <= 1) {
 			return;
 		}
@@ -355,10 +357,30 @@ public class LinkedList<E> extends AbstractLinkedList<E> {
 		}
 	}
 	
+	@Override
+	public void removeDuplicates() {
+		checkSize();
+		ListNode<E> cur = head.next;
+		Map<E, Deque<ListNode<E>>> map = new WeakHashMap<>();
+		while(cur != tail) {
+			map.putIfAbsent(cur.value, new ArrayDeque<>());
+			map.get(cur.value).offer(cur);
+			cur = cur.next;
+		}
+		for(Deque<ListNode<E>> dq : map.values()) {
+			while(dq.size() > 1) {
+				remove(dq.poll());
+			}
+			dq.clear();
+		}
+		map.clear();
+		map = null;
+	}
+	
 	public void removeAllDuplicatedElements() {
 		checkSize();
 		ListNode<E> cur = head.next;
-		Map<E, SingleLinkedList<ListNode<E>>> map = new HashMap<>();
+		Map<E, SingleLinkedList<ListNode<E>>> map = new WeakHashMap<>();
 		while(cur != tail) {
 			map.putIfAbsent(cur.value, new SingleLinkedList<>());
 			map.get(cur.value).addToFront(cur);

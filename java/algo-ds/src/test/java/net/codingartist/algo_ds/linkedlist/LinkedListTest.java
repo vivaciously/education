@@ -459,13 +459,56 @@ public class LinkedListTest {
 	}
 	
 	@Test
-	public void testRemoveDuplicates() {
+	public void TestSortAndRemoveDuplicates() {
 		Integer[] testCase = ArrayTestUtils.strToIntegerArray("[5,3,1,2,34,6,3,24,6,9]");
 		list = new LinkedList<>(testCase);
-		list.removeDuplicates((a,b) -> Integer.compare(a, b));
+		list.sortAndRemoveDuplicates((a,b) -> Integer.compare(a, b));
 		Set<Integer> set = new HashSet<>();
 		for(int n : list) {
 			assertFalse(set.contains(n));
+		}
+	}
+	
+	@Test
+	public void TestRemoveDuplicates() {
+		Integer[] testCase = ArrayTestUtils.strToIntegerArray("[5,3,1,2,34,6,3,24,6,9]");
+		list = new LinkedList<>(testCase);
+		
+		list.removeDuplicates();
+		List<Integer> expected = ArrayTestUtils.strToIntegerList("[5,1,2,34,3,24,6,9]");
+		assertTrue(list.size() == expected.size());
+		for(int i =0; i<expected.size(); i++) {
+			assertEquals(expected.get(i), list.peekAt(i));
+		}
+		list.clear();
+		testCase = ArrayTestUtils.strToIntegerArray("[1,1,1,1,1,1,1,1]");
+		list.addAll(testCase);
+		list.removeDuplicates();
+		assertTrue(list.size() == 1);
+		assertTrue(list.peek() == 1);
+		
+		list.clear();
+		testCase = ArrayTestUtils.strToIntegerArray("[1,1]");
+		list.addAll(testCase);
+		list.removeDuplicates();
+		assertTrue(list.size() == 1);
+		assertTrue(list.peek() == 1);
+		
+		list.clear();
+		testCase = ArrayTestUtils.strToIntegerArray("[1]");
+		list.addAll(testCase);
+		list.removeDuplicates();
+		assertTrue(list.size() == 1);
+		assertTrue(list.peek() == 1);
+		
+		list.clear();
+		testCase = ArrayTestUtils.strToIntegerArray("[1,1,3,1,3,5,7,2,1,1,2,3,6,3,5,6,7,8,1]");
+		list.addAll(testCase);
+		list.removeDuplicates();
+		expected = ArrayTestUtils.strToIntegerList("[2,3,5,6,7,8,1]");
+		assertTrue(list.size() == expected.size());
+		for(int i =0; i<expected.size(); i++) {
+			assertEquals(expected.get(i), list.peekAt(i));
 		}
 	}
 	
@@ -480,6 +523,10 @@ public class LinkedListTest {
 		assertFalse(list.contains(3));
 		assertFalse(list.contains(6));
 		assertTrue(list.size() == testCase.length - 4);
+		list.clear();
+		list.addAll(ArrayTestUtils.strToIntegerArray("[1,1,1,1,1,1,1]"));
+		list.removeAllDuplicatedElements();
+		assertTrue(list.size() == 0);
 	}
 	
 	@Test

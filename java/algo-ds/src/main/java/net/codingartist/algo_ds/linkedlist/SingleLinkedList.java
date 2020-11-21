@@ -2,6 +2,8 @@ package net.codingartist.algo_ds.linkedlist;
 
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.Map;
+import java.util.WeakHashMap;
 
 
 public class SingleLinkedList<E> extends AbstractLinkedList<E> {
@@ -285,7 +287,7 @@ public class SingleLinkedList<E> extends AbstractLinkedList<E> {
     }
 	
 	@Override
-	public void removeDuplicates(Comparator<E> c){
+	public void sortAndRemoveDuplicates(Comparator<E> c){
 		if(head == null || head.next == null) {
 			return;
 		}
@@ -387,5 +389,69 @@ public class SingleLinkedList<E> extends AbstractLinkedList<E> {
 	public Iterator<E> iterator() {
 		return new LinkedListIterator<E>(head);
 	}
+
+	@Override
+	public void removeDuplicates() {
+		if(head == null || head.next == null) {
+			return;
+		}
+		Map<E, Integer> map = new WeakHashMap<>();
+		ListNode<E> p = head;
+		while(p != null) {
+			map.merge(p.value, 1, Integer::sum);
+			p = p.next;
+		}
+		ListNode<E> dummy = new ListNode<>();
+		dummy.next = head;
+		ListNode<E> prev = dummy;
+		p = head;
+		while(p != null && p.next != null) {
+			if(map.get(p.value) > 1) {
+				prev.next = p.next;
+				map.merge(p.value, -1, Integer::sum);
+				p = p.next;
+				size--;
+			} else {
+				p = p.next;
+				prev = prev.next;
+			}
+		}
+		map.clear();
+		head = dummy.next;
+		dummy = null;
+		map = null;
+	}
+	
+	@Override
+	public void removeAllDuplicatedElements() {
+		if(head == null || head.next == null) {
+			return;
+		}
+		Map<E, Integer> map = new WeakHashMap<>();
+		ListNode<E> p = head;
+		while(p != null) {
+			map.merge(p.value, 1, Integer::sum);
+			p = p.next;
+		}
+		ListNode<E> dummy = new ListNode<>();
+		dummy.next = head;
+		ListNode<E> prev = dummy;
+		p = head;
+		while(p != null) {
+			if(map.get(p.value) > 1) {
+				prev.next = p.next;
+				p = p.next;
+				size--;
+			} else {
+				p = p.next;
+				prev = prev.next;
+			}
+		}
+		map.clear();
+		head = dummy.next;
+		dummy = null;
+		map = null;
+	}
+	
 	
 }
