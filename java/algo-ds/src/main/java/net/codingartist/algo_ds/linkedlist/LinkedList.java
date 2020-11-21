@@ -2,15 +2,13 @@ package net.codingartist.algo_ds.linkedlist;
 
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
+
 
 public class LinkedList<E> extends AbstractLinkedList<E> {
 
 	protected ListNode<E> tail;
-	protected Map<E, SingleLinkedList<ListNode<E>>> map = new HashMap<>();
 	
 	public LinkedList() {
 		head = new ListNode<>();
@@ -30,7 +28,6 @@ public class LinkedList<E> extends AbstractLinkedList<E> {
 		tail.prev = head;
 		
 		ListNode<E> n = new ListNode<>(value);
-		map.put(value, new SingleLinkedList<>(n));
 		head.next = n;
 		n.prev = head;
 		
@@ -48,11 +45,9 @@ public class LinkedList<E> extends AbstractLinkedList<E> {
 		ListNode<E> prev = null;
 		for(E val : src) {
 			checkValue(val, "Given src contains Null.");
-			map.putIfAbsent(val, new SingleLinkedList<>());
 			prev = p;
 			p.next = new ListNode<>(val);
 			p = p.next;
-			map.get(val).addToFront(p);
 			p.prev = prev;
 			prev.next = p;
 			size++;
@@ -70,11 +65,9 @@ public class LinkedList<E> extends AbstractLinkedList<E> {
 		ListNode<E> prev = null;
 		for(int i=0; i<array.length; i++) {
 			checkValue(array[i], "Given array contains Null at index: " + i );
-			map.putIfAbsent(array[i], new SingleLinkedList<>());
 			prev = p;
 			p.next = new ListNode<>(array[i]);
 			p = p.next;
-			map.get(array[i]).addToFront(p);
 			p.prev = prev;
 			prev.next = p;
 			size++;
@@ -90,11 +83,9 @@ public class LinkedList<E> extends AbstractLinkedList<E> {
 			ListNode<E> prev = null;
 			for(E val : src) {
 				checkValue(val, "Given src contains Null.");
-				map.putIfAbsent(val, new SingleLinkedList<>());
 				prev = p;
 				p.next = new ListNode<>(val);
 				p = p.next;
-				map.get(val).addToFront(p);
 				p.prev = prev;
 				prev.next = p;
 				size++;
@@ -106,11 +97,9 @@ public class LinkedList<E> extends AbstractLinkedList<E> {
 			ListNode<E> prev = null;
 			for(E val : src) {
 				checkValue(val, "Given src contains Null.");
-				map.putIfAbsent(val, new SingleLinkedList<>());
 				prev = p;
 				p.next = new ListNode<>(val);
 				p = p.next;
-				map.get(val).addToFront(p);
 				p.prev = prev;
 				prev.next = p;
 				size++;
@@ -128,11 +117,9 @@ public class LinkedList<E> extends AbstractLinkedList<E> {
 			ListNode<E> prev = null;
 			for(int i=0; i<array.length; i++) {
 				checkValue(array[i], "Given array contains Null at index: " + i );
-				map.putIfAbsent(array[i], new SingleLinkedList<>());
 				prev = p;
 				p.next = new ListNode<>(array[i]);
 				p = p.next;
-				map.get(array[i]).addToFront(p);
 				p.prev = prev;
 				prev.next = p;
 				size++;
@@ -144,11 +131,9 @@ public class LinkedList<E> extends AbstractLinkedList<E> {
 			ListNode<E> prev = null;
 			for(int i=0; i<array.length; i++) {
 				checkValue(array[i], "Given array contains Null at index: " + i );
-				map.putIfAbsent(array[i], new SingleLinkedList<>());
 				prev = p;
 				p.next = new ListNode<>(array[i]);
 				p = p.next;
-				map.get(array[i]).addToFront(p);
 				p.prev = prev;
 				prev.next = p;
 				size++;
@@ -179,8 +164,15 @@ public class LinkedList<E> extends AbstractLinkedList<E> {
 	@Override
 	public boolean contains(E value) {
 		checkValue(value);
-		if(map.containsKey(value)) {
-			return true;
+		if(size == 0) {
+			return false;
+		}
+		ListNode<E> p = head.next;
+		while(p != tail) {
+			if(p.value.equals(value)) {
+				return true;
+			}
+			p = p.next;
 		}
 		return false;
 	}
@@ -193,18 +185,12 @@ public class LinkedList<E> extends AbstractLinkedList<E> {
 		head.next = tail;
 		tail.prev = head;
 		size = 0;
-		for(SingleLinkedList<ListNode<E>> sl : map.values()) {
-			sl.clear();
-		}
-		map.clear();
 	}
 
 	@Override
 	public void addToFront(E value) {
 		checkValue(value);
 		ListNode<E> n = new ListNode<>(value);
-		map.putIfAbsent(value, new SingleLinkedList<>());
-		map.get(value).addToFront(n);
 		ListNode<E> next = head.next;
 		n.next = next;
 		next.prev = n;
@@ -218,8 +204,6 @@ public class LinkedList<E> extends AbstractLinkedList<E> {
 	public void addToTail(E value) {
 		checkValue(value);
 		ListNode<E> n = new ListNode<>(value);
-		map.putIfAbsent(value, new SingleLinkedList<>());
-		map.get(value).addToFront(n);
 		ListNode<E> prev = tail.prev;
 		prev.next = n;
 		n.prev = prev;
@@ -258,7 +242,6 @@ public class LinkedList<E> extends AbstractLinkedList<E> {
 		head.next = next;
 		next.prev = head;
 		size--;
-		updateMap(n);
 		return n.value;
 	}
 
@@ -271,12 +254,14 @@ public class LinkedList<E> extends AbstractLinkedList<E> {
 		prev.next = tail;
 		tail.prev = prev;
 		size--;
-		updateMap(n);
 		return n.value;
 	}
 
 	@Override
 	public E removeAt(int index) {
+		if(index >= size || index < 0) {
+			throw new IllegalArgumentException("The given index is out of range. index: " + index + " size:" + size);
+		}
 		ListNode<E> n = findNodeAt(index);
 		remove(n);
 		return n.value;
@@ -284,21 +269,21 @@ public class LinkedList<E> extends AbstractLinkedList<E> {
 
 	@Override
 	public boolean remove(E value) {
-		if(map.containsKey(value)) {
-			ListNode<E> n = map.get(value).removeFirst();
-			updateMap(n);
-			remove(n);
-			return true;
+		checkValue(value);
+		if(size == 0) {
+			return false;
+		}
+		ListNode<E> p = head.next;
+		while(p != tail) {
+			if(p.value.equals(value)) {
+				remove(p);
+				return true;
+			}
+			p = p.next;
 		}
 		return false;
 	}
-	
-	protected void updateMap(ListNode<E> n) {
-		if(map.get(n.value).size() == 0) {
-			map.put(n.value, null);
-			map.remove(n.value);
-		} 
-	}
+
 	
 	protected void remove(ListNode<E> n) {
 		ListNode<E> next = n.next;
@@ -372,24 +357,22 @@ public class LinkedList<E> extends AbstractLinkedList<E> {
 	
 	public void removeAllDuplicatedElements() {
 		checkSize();
-		Set<E> keys = new HashSet<>();
+		ListNode<E> cur = head.next;
+		Map<E, SingleLinkedList<ListNode<E>>> map = new HashMap<>();
+		while(cur != tail) {
+			map.putIfAbsent(cur.value, new SingleLinkedList<>());
+			map.get(cur.value).addToFront(cur);
+			cur = cur.next;
+		}
 		for(SingleLinkedList<ListNode<E>> sl : map.values()) {
 			if(sl.size() > 1) {
-				E key = sl.peek().value;
 				for(ListNode<E> n : sl) {
 					remove(n);
-					keys.add(key);
 				}
 			}
 		}
-		for(E key : keys) {
-			SingleLinkedList<ListNode<E>> sl = map.get(key);
-			sl.clear();
-			sl = null;
-			map.remove(key);
-		}
-		keys.clear();
-		keys = null;
+		map.clear();
+		map = null;
 	}
 
 	@Override

@@ -30,7 +30,6 @@ public class LinkedListTest {
 		assertTrue(list.peekTail() == 89);
 		assertTrue(list.remove(89));
 		assertTrue(list.size() == 0);
-		assertTrue(list.map.size() == 0);
 	}
 	
 	@Test
@@ -41,7 +40,6 @@ public class LinkedListTest {
 		for(int n : testCase) {
 			assertTrue(list.contains(n));
 		}
-		assertTrue(list.map.get(6).size() == 1);
 		List<Integer> anotherTestCase = ArrayTestUtils.strToIntegerList("[1,3,5,2,34,6,78,24,6,9]");
 		anotherTestCase.add(null);
 		list.clear();
@@ -56,7 +54,6 @@ public class LinkedListTest {
 		Integer[] testCase = ArrayTestUtils.strToIntegerArray("[1,3,5,2,34,6,3,24,6,9]");
 		list = new LinkedList<>(testCase);
 		assertTrue(list.size() == testCase.length);
-		assertTrue(list.map.get(3).size() == 2);
 		list.clear();
 		list = null;
 		testCase[4] = null;
@@ -217,7 +214,6 @@ public class LinkedListTest {
 		assertTrue(list.head.next == list.tail);
 		assertTrue(list.head.prev == null);
 		assertTrue(list.tail.next == null);
-		assertTrue(list.map.size() == 0);
 	}
 	
 	@Test
@@ -295,27 +291,121 @@ public class LinkedListTest {
 	
 	@Test
 	public void testRemoveFirst() {
+		list = new LinkedList<>();
+		assertThrows(NoSuchElementException.class, () -> {
+			list.removeFirst();
+		});
+		list.addToFront(0);
+		assertTrue(list.removeFirst() == 0);
+		assertThrows(NoSuchElementException.class, () -> {
+			list.removeFirst();
+		});
+		list.addToFront(0);
+		list.addToFront(1);
+		assertTrue(list.removeFirst() == 1);
+		assertTrue(list.removeFirst() == 0);
 		
+		list.addToFront(0);
+		list.addToFront(1);
+		list.addToTail(2);
+		assertTrue(list.removeFirst() == 1);
+		assertTrue(list.removeFirst() == 0);
+		assertTrue(list.removeFirst() == 2);
+		assertThrows(NoSuchElementException.class, () -> {
+			list.removeFirst();
+		});
 	}
 	
 	@Test
 	public void testRemoveTail() {
+		list = new LinkedList<>();
+		assertThrows(NoSuchElementException.class, () -> {
+			list.removeTail();
+		});
+		list.addToTail(0);
+		assertTrue(list.removeTail() == 0);
+		assertThrows(NoSuchElementException.class, () -> {
+			list.removeTail();
+		});
 		
+		list.addToTail(0);
+		list.addToTail(1);
+		assertTrue(list.size() == 2);
+		assertTrue(list.removeTail() == 1);
+		assertTrue(list.removeTail() == 0);
+		assertTrue(list.isEmpty());
+		
+		list.addToTail(0);
+		list.addToTail(1);
+		list.addToTail(2);
+		assertTrue(list.size() == 3);
+		assertTrue(list.removeTail() == 2);
+		assertTrue(list.removeTail() == 1);
+		assertTrue(list.removeTail() == 0);
+		assertTrue(list.isEmpty());
+		
+		list.addToTail(0);
+		list.addToTail(1);
+		list.addToTail(2);
+		assertTrue(list.removeFirst() == 0);
+		assertTrue(list.removeFirst() == 1);
+		assertTrue(list.removeFirst() == 2);
+		assertTrue(list.isEmpty());
+		assertThrows(NoSuchElementException.class, () -> {
+			list.removeTail();
+		});
 	}
 	
 	@Test
-	public void testRemoveNode() {
-		
+	public void testRemoveAt() {
+		list = new LinkedList<>();
+		assertThrows(IllegalArgumentException.class, () -> {
+			list.removeAt(-1);
+		});
+		List<Integer> testCase = ArrayTestUtils.strToIntegerList("[1,2,3]");
+		list.addAll(testCase);
+		assertTrue(list.removeAt(1) == 2);
+		assertTrue(list.removeAt(1) == 3);
+		assertTrue(list.removeAt(0) == 1);
+		testCase = ArrayTestUtils.strToIntegerList("[1,2,3,1,2,3]");
+		list.addAll(testCase);
+		assertEquals(list.removeAt(3), 1);
+		assertEquals(list.removeAt(0), 1);
+		assertEquals(list.removeAt(0), 2);
+		assertThrows(IllegalArgumentException.class, () -> {
+			list.removeAt(3);
+		});
+		assertEquals(list.removeAt(1), 2);
+		assertEquals(list.removeAt(0), 3);
+		assertEquals(list.removeAt(0), 3);
 	}
 	
 	@Test
 	public void testRemove() {
-		
-	}
-	
-	@Test
-	public void testUpdateMap() {
-		
+		list = new LinkedList<>();
+		assertThrows(NullPointerException.class, () -> {
+			Integer val = null;
+			list.remove(val);
+		});
+		assertFalse(list.remove(35));
+		list.addToTail(35);
+		list.addToTail(35);
+		assertTrue(list.remove(35));
+		assertTrue(list.remove(35));
+		assertFalse(list.remove(35));
+		assertTrue(list.isEmpty());
+		List<Integer> testCase = ArrayTestUtils.strToIntegerList("[1,3,3,2,34,6,78,24,6,9]");
+		list.addAll(testCase);
+		assertTrue(list.size() == testCase.size());
+		assertTrue(list.remove(3));
+		assertTrue(list.remove(3));
+		assertFalse(list.remove(3));
+		assertTrue(list.size() == testCase.size() -2);
+		assertTrue(list.remove(9));
+		assertTrue(list.remove(6));
+		assertTrue(list.remove(6));
+		assertFalse(list.remove(9));
+		assertFalse(list.remove(6));
 	}
 	
 	@Test
