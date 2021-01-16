@@ -459,7 +459,7 @@ public class LinkedListTest {
 	}
 	
 	@Test
-	public void TestSortAndRemoveDuplicates() {
+	public void testSortAndRemoveDuplicates() {
 		Integer[] testCase = ArrayTestUtils.strToIntegerArray("[5,3,1,2,34,6,3,24,6,9]");
 		list = new LinkedList<>(testCase);
 		list.sortAndRemoveDuplicates((a,b) -> Integer.compare(a, b));
@@ -470,7 +470,7 @@ public class LinkedListTest {
 	}
 	
 	@Test
-	public void TestRemoveDuplicates() {
+	public void testRemoveDuplicates() {
 		Integer[] testCase = ArrayTestUtils.strToIntegerArray("[5,3,1,2,34,6,3,24,6,9]");
 		list = new LinkedList<>(testCase);
 		
