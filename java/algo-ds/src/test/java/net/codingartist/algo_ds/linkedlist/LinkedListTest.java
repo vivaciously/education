@@ -467,6 +467,7 @@ public class LinkedListTest {
 		for(int n : list) {
 			assertFalse(set.contains(n));
 		}
+		
 	}
 	
 	@Test
