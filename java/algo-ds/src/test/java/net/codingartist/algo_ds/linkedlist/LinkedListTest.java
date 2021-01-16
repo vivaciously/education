@@ -30,6 +30,7 @@ public class LinkedListTest {
 		assertTrue(list.peekTail() == 89);
 		assertTrue(list.remove(89));
 		assertTrue(list.size() == 0);
+		
 	}
 	
 	@Test
