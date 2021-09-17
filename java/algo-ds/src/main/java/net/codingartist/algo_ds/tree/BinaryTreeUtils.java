@@ -8,6 +8,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import net.codingartist.algo_ds.stack.Stack;
+
 public class BinaryTreeUtils {
 	
 	private BinaryTreeUtils() {
@@ -106,6 +108,33 @@ public class BinaryTreeUtils {
 		results.add(n.val);
 		preorder(n.left, results);
 		preorder(n.right, results);
+	}
+	
+	public static <E> List<E> iterativePreorder(TreeNode<E> root) {
+		if(root == null) {
+			return Collections.emptyList();
+		}
+		List<E> results = new ArrayList<>();
+		iterativePreorder(root, results);
+		return results;
+	}
+	
+	private static <E> void iterativePreorder(TreeNode<E> root, List<E> results) {
+		if(root == null) {
+			return;
+		}
+		Stack<TreeNode<E>> stack = new Stack<>();
+		stack.push(root);
+		while(!stack.isEmpty()) {
+			TreeNode<E> cur = stack.pop();
+			results.add(cur.value());
+			if(cur.right != null) {
+				stack.push(cur.right);
+			}
+			if(cur.left != null) {
+				stack.push(cur.left);
+			}
+		}
 	}
 	
 	public static <E> List<E> postorder(TreeNode<E> root) {
