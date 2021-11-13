@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		544989D3273FB8710008F146 /* StringProtocolExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544989D2273FB8710008F146 /* StringProtocolExtension.swift */; };
 		544989D8273FB9260008F146 /* StringProtocolExtensionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544989D6273FB9260008F146 /* StringProtocolExtensionTest.swift */; };
+		544989DB273FBD940008F146 /* ArrayStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544989DA273FBD940008F146 /* ArrayStack.swift */; };
+		544989DD273FC05B0008F146 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544989DC273FC05B0008F146 /* Stack.swift */; };
+		544989E0273FC1BF0008F146 /* ArrayStackTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544989DF273FC1BF0008F146 /* ArrayStackTest.swift */; };
 		5475456B2724193C000EE653 /* algo_ds.docc in Sources */ = {isa = PBXBuildFile; fileRef = 5475456A2724193C000EE653 /* algo_ds.docc */; };
 		547545712724193D000EE653 /* algo_ds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 547545662724193C000EE653 /* algo_ds.framework */; };
 		547545762724193D000EE653 /* algo_dsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547545752724193D000EE653 /* algo_dsTests.swift */; };
@@ -30,6 +33,9 @@
 /* Begin PBXFileReference section */
 		544989D2273FB8710008F146 /* StringProtocolExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringProtocolExtension.swift; sourceTree = "<group>"; };
 		544989D6273FB9260008F146 /* StringProtocolExtensionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringProtocolExtensionTest.swift; sourceTree = "<group>"; };
+		544989DA273FBD940008F146 /* ArrayStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayStack.swift; sourceTree = "<group>"; };
+		544989DC273FC05B0008F146 /* Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
+		544989DF273FC1BF0008F146 /* ArrayStackTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayStackTest.swift; sourceTree = "<group>"; };
 		547545662724193C000EE653 /* algo_ds.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = algo_ds.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		547545692724193C000EE653 /* algo_ds.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = algo_ds.h; sourceTree = "<group>"; };
 		5475456A2724193C000EE653 /* algo_ds.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = algo_ds.docc; sourceTree = "<group>"; };
@@ -69,6 +75,7 @@
 		544989D1273FB83F0008F146 /* protocol */ = {
 			isa = PBXGroup;
 			children = (
+				544989DC273FC05B0008F146 /* Stack.swift */,
 			);
 			path = protocol;
 			sourceTree = "<group>";
@@ -79,6 +86,22 @@
 				544989D6273FB9260008F146 /* StringProtocolExtensionTest.swift */,
 			);
 			path = extension;
+			sourceTree = "<group>";
+		};
+		544989D9273FBCEA0008F146 /* Stack */ = {
+			isa = PBXGroup;
+			children = (
+				544989DA273FBD940008F146 /* ArrayStack.swift */,
+			);
+			path = Stack;
+			sourceTree = "<group>";
+		};
+		544989DE273FC19C0008F146 /* Stack */ = {
+			isa = PBXGroup;
+			children = (
+				544989DF273FC1BF0008F146 /* ArrayStackTest.swift */,
+			);
+			path = Stack;
 			sourceTree = "<group>";
 		};
 		5475455C2724193C000EE653 = {
@@ -103,6 +126,7 @@
 			isa = PBXGroup;
 			children = (
 				547545802724198E000EE653 /* Array */,
+				544989D9273FBCEA0008F146 /* Stack */,
 				544989D1273FB83F0008F146 /* protocol */,
 				544989D0273FB8320008F146 /* extension */,
 				547545692724193C000EE653 /* algo_ds.h */,
@@ -115,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				54754581272419C5000EE653 /* Array */,
+				544989DE273FC19C0008F146 /* Stack */,
 				544989D5273FB8FF0008F146 /* extension */,
 				547545752724193D000EE653 /* algo_dsTests.swift */,
 			);
@@ -246,6 +271,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				544989DB273FBD940008F146 /* ArrayStack.swift in Sources */,
+				544989DD273FC05B0008F146 /* Stack.swift in Sources */,
 				54754583272419ED000EE653 /* Matrix.swift in Sources */,
 				544989D3273FB8710008F146 /* StringProtocolExtension.swift in Sources */,
 				5475456B2724193C000EE653 /* algo_ds.docc in Sources */,
@@ -256,6 +283,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				544989E0273FC1BF0008F146 /* ArrayStackTest.swift in Sources */,
 				5475458527241E1F000EE653 /* MatrixTest.swift in Sources */,
 				544989D8273FB9260008F146 /* StringProtocolExtensionTest.swift in Sources */,
 				547545762724193D000EE653 /* algo_dsTests.swift in Sources */,
