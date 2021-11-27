@@ -37,14 +37,14 @@ class SingleLinkedListTest: XCTestCase {
     func testAppendToFront() {
         var list = SingleLinkedList<Int>()
         list.appendToFront(2)
-        XCTAssert(list.peekFront() == 2)
+        XCTAssert(list.peek() == 2)
         XCTAssert(!list.isEmpty)
         XCTAssert(list.count == 1)
         list.appendToFront(1)
-        XCTAssert(list.peekFront() == 1)
+        XCTAssert(list.peek() == 1)
         list.appendToFront(3)
-        XCTAssert(list.peekFront() == 3)
-        XCTAssert(list.peek() == 2)
+        XCTAssert(list.peek() == 3)
+        XCTAssert(list.peekLast() == 2)
     }
     
     func testNodeAt() {
@@ -63,7 +63,7 @@ class SingleLinkedListTest: XCTestCase {
     func testInsertAt() {
         var list = SingleLinkedList(from: [0,1,2,3,4,5])
         list.insert(value: 10, at: 0)
-        XCTAssert(list.peekFront() == 10)
+        XCTAssert(list.peek() == 10)
         list.insert(value: 20, at: 1)
         XCTAssert(list[1] == 20)
         XCTAssert(list[0] == 10)

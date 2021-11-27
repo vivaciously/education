@@ -23,7 +23,7 @@ public struct SingleLinkedList<T> {
     }
     
     //typealias Node = ListNode<T>
-    private(set) var head: Node<T>?
+    private var head: Node<T>?
     private(set) var count: Int = 0
     
     public var isEmpty: Bool {
@@ -80,7 +80,7 @@ public struct SingleLinkedList<T> {
         count += 1
     }
     
-    public func peekFront() -> T? {
+    public func peek() -> T? {
         if head == nil {
             return nil
         } else {
@@ -88,7 +88,7 @@ public struct SingleLinkedList<T> {
         }
     }
     
-    public func peek() -> T? {
+    public func peekLast() -> T? {
         guard let last = last else {
             return nil
         }
