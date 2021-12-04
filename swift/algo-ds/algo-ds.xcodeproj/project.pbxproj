@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5408CF4C275B62590095A1B2 /* ListStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5408CF4B275B62590095A1B2 /* ListStack.swift */; };
+		5408CF4E275B63FA0095A1B2 /* ListStackTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5408CF4D275B63FA0095A1B2 /* ListStackTest.swift */; };
 		544989D3273FB8710008F146 /* StringProtocolExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544989D2273FB8710008F146 /* StringProtocolExtension.swift */; };
 		544989D8273FB9260008F146 /* StringProtocolExtensionTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544989D6273FB9260008F146 /* StringProtocolExtensionTest.swift */; };
 		544989DB273FBD940008F146 /* ArrayStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 544989DA273FBD940008F146 /* ArrayStack.swift */; };
@@ -33,6 +35,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5408CF4B275B62590095A1B2 /* ListStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListStack.swift; sourceTree = "<group>"; };
+		5408CF4D275B63FA0095A1B2 /* ListStackTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListStackTest.swift; sourceTree = "<group>"; };
 		544989D2273FB8710008F146 /* StringProtocolExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringProtocolExtension.swift; sourceTree = "<group>"; };
 		544989D6273FB9260008F146 /* StringProtocolExtensionTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringProtocolExtensionTest.swift; sourceTree = "<group>"; };
 		544989DA273FBD940008F146 /* ArrayStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrayStack.swift; sourceTree = "<group>"; };
@@ -96,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				544989DA273FBD940008F146 /* ArrayStack.swift */,
+				5408CF4B275B62590095A1B2 /* ListStack.swift */,
 			);
 			path = Stack;
 			sourceTree = "<group>";
@@ -104,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				544989DF273FC1BF0008F146 /* ArrayStackTest.swift */,
+				5408CF4D275B63FA0095A1B2 /* ListStackTest.swift */,
 			);
 			path = Stack;
 			sourceTree = "<group>";
@@ -293,6 +299,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5408CF4C275B62590095A1B2 /* ListStack.swift in Sources */,
 				544989DB273FBD940008F146 /* ArrayStack.swift in Sources */,
 				544989DD273FC05B0008F146 /* Stack.swift in Sources */,
 				54754583272419ED000EE653 /* Matrix.swift in Sources */,
@@ -308,6 +315,7 @@
 			files = (
 				544989E0273FC1BF0008F146 /* ArrayStackTest.swift in Sources */,
 				5475458527241E1F000EE653 /* MatrixTest.swift in Sources */,
+				5408CF4E275B63FA0095A1B2 /* ListStackTest.swift in Sources */,
 				544989D8273FB9260008F146 /* StringProtocolExtensionTest.swift in Sources */,
 				547545762724193D000EE653 /* algo_dsTests.swift in Sources */,
 				544989E6273FC9950008F146 /* SingleLinkedListTest.swift in Sources */,

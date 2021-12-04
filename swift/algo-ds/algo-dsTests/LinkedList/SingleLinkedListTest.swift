@@ -93,7 +93,7 @@ class SingleLinkedListTest: XCTestCase {
     
     func testReverse() {
         let array = [0,1,2,3,4,5]
-        var list = SingleLinkedList(from: array)
+        var list :SingleLinkedList<Int> = [0,1,2,3,4,5]
         list.reverse()
         for i in 0 ..< array.count {
             XCTAssert(list[i] == array[array.count - i - 1])
