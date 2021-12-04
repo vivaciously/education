@@ -100,4 +100,12 @@ class SingleLinkedListTest: XCTestCase {
         }
     }
     
+    func testSort() {
+        var list: SingleLinkedList<Int> = [5,1,3,2,4,0]
+        list.sort()
+        for i in 0 ..< list.count {
+            XCTAssert(list[i] == i)
+        }
+    }
+    
 }

@@ -249,6 +249,56 @@ extension SingleLinkedList where T: Equatable {
     }
 }
 
+extension SingleLinkedList where T: Comparable {
+    
+    public mutating func sort() {
+        head = mergeSort(head)
+    }
+    
+    private func mergeSort(_ node: Node<T>?) -> Node<T>? {
+        if node == nil || node?.next == nil {
+            return node
+        }
+        
+        var slow = node
+        var fast = node
+        var prev: Node<T>? = nil
+        while fast != nil && fast!.next != nil {
+            prev = slow
+            slow = slow?.next
+            fast = fast?.next?.next
+        }
+        prev?.next = nil
+        let l1 = mergeSort(node)
+        let l2 = mergeSort(slow)
+        return merge(l1, l2)
+    }
+    
+    private func merge(_ l1: Node<T>?, _ l2: Node<T>?) -> Node<T>?{
+        let sentinel: Node<T>? = Node(value: l1!.value)
+        var cur = sentinel
+        var m = l1
+        var n = l2
+        while m != nil && n != nil {
+            if m!.value < n!.value {
+                cur?.next = m
+                m = m?.next
+            } else {
+                cur?.next = n
+                n = n?.next
+            }
+            cur = cur?.next
+        }
+        if m != nil {
+            cur?.next = m
+        }
+        if n != nil {
+            cur?.next = n
+        }
+        return sentinel!.next
+    }
+}
+
 extension SingleLinkedList: ExpressibleByArrayLiteral {
     
     public init(arrayLiteral elements: T ...) {
