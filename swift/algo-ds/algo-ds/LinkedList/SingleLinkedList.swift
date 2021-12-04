@@ -183,6 +183,11 @@ public struct SingleLinkedList<T> {
         guard var node = head else {
             return nil
         }
+        if self.count == 1 {
+            head = nil
+            count -= 1
+            return node
+        }
         var prev: Node<T>? = nil
         while let next = node.next {
             prev = node
