@@ -37,13 +37,13 @@ class SingleLinkedListTest: XCTestCase {
     func testAppendToFront() {
         var list = SingleLinkedList<Int>()
         list.appendToFront(2)
-        XCTAssert(list.peek() == 2)
+        XCTAssert(list.peekFirst() == 2)
         XCTAssert(!list.isEmpty)
         XCTAssert(list.count == 1)
         list.appendToFront(1)
-        XCTAssert(list.peek() == 1)
+        XCTAssert(list.peekFirst() == 1)
         list.appendToFront(3)
-        XCTAssert(list.peek() == 3)
+        XCTAssert(list.peekFirst() == 3)
         XCTAssert(list.peekLast() == 2)
     }
     
@@ -63,11 +63,41 @@ class SingleLinkedListTest: XCTestCase {
     func testInsertAt() {
         var list = SingleLinkedList(from: [0,1,2,3,4,5])
         list.insert(value: 10, at: 0)
-        XCTAssert(list.peek() == 10)
+        XCTAssert(list.peekFirst() == 10)
         list.insert(value: 20, at: 1)
         XCTAssert(list[1] == 20)
         XCTAssert(list[0] == 10)
         XCTAssert(list[2] == 0)
+    }
+    
+    func testPeekLast() {
+        var list = SingleLinkedList<Int>()
+        XCTAssert(list.peekLast() == nil)
+        list.append(1)
+        XCTAssert(list.peekLast() == 1)
+        list.removeFirst()
+        XCTAssert(list.peekLast() == nil)
+        list.append(1)
+        list.append(2)
+        XCTAssert(list.peekLast() == 2)
+        XCTAssert(list.count == 2)
+    }
+    
+    func testSubscript() {
+        let array = [0,1,2,3,4,5]
+        let list = SingleLinkedList(from: array)
+        for i in 0 ..< array.count {
+            XCTAssert(array[i] == list[i])
+        }
+    }
+    
+    func testReverse() {
+        let array = [0,1,2,3,4,5]
+        var list = SingleLinkedList(from: array)
+        list.reverse()
+        for i in 0 ..< array.count {
+            XCTAssert(list[i] == array[array.count - i - 1])
+        }
     }
     
 }

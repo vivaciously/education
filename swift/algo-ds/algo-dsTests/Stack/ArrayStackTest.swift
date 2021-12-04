@@ -51,5 +51,24 @@ class ArrayStackTest: XCTestCase {
         XCTAssert(stack.count == 0)
     }
     
+    func testInitFromArray() {
+        let array = [1,2,3,4,5]
+        var stack = ArrayStack<Int>(array)
+        var index = array.count - 1
+        while stack.count > 0 {
+            XCTAssert(stack.pop() == array[index])
+            index -= 1
+        }
+    }
+    
+    func testInitFromArrayLiteral() {
+        var stack = ArrayStack([1,2,3,4,5])
+        var value = 5
+        while !stack.isEmpty {
+            XCTAssert(stack.pop() == value)
+            value -= 1
+        }
+    }
+    
     
 }

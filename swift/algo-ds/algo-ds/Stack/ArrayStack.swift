@@ -12,6 +12,10 @@ struct ArrayStack<T>: Stack {
     
     private var array = [T]()
     
+    public init(_ array: [T]) {
+        self.array = array
+    }
+    
     public var isEmpty: Bool {
         array.isEmpty
     }
@@ -37,4 +41,10 @@ struct ArrayStack<T>: Stack {
         array.removeAll()
     }
     
+}
+
+extension ArrayStack: ExpressibleByArrayLiteral {
+    public init(arrayLiteral elements: T ...) {
+        array = elements
+    }
 }

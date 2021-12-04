@@ -30,7 +30,7 @@ public struct SingleLinkedList<T> {
         head == nil
     }
     
-    public var last: Node<T>? {
+    private var last: Node<T>? {
         guard var node = head else {
             return nil
         }
@@ -80,7 +80,7 @@ public struct SingleLinkedList<T> {
         count += 1
     }
     
-    public func peek() -> T? {
+    public func peekFirst() -> T? {
         if head == nil {
             return nil
         } else {
@@ -171,6 +171,14 @@ public struct SingleLinkedList<T> {
     }
     
     @discardableResult
+    public mutating func popFirst() -> T? {
+        if let node = removeFirst() {
+            return node.value
+        }
+        return nil
+    }
+    
+    @discardableResult
     public mutating func removeLast() -> Node<T>? {
         guard var node = head else {
             return nil
@@ -183,6 +191,14 @@ public struct SingleLinkedList<T> {
         prev?.next = nil
         count -= 1
         return node
+    }
+    
+    @discardableResult
+    public mutating func popLast() -> T? {
+        if let node = removeLast() {
+            return node.value
+        }
+        return nil
     }
     
     public mutating func reverse() {
@@ -225,5 +241,12 @@ extension SingleLinkedList where T: Equatable {
             node = next
         }
         return false
+    }
+}
+
+extension SingleLinkedList: ExpressibleByArrayLiteral {
+    
+    public init(arrayLiteral elements: T ...) {
+        self.init(from: elements)
     }
 }
