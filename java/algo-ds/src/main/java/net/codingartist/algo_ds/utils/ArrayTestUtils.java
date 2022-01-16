@@ -14,7 +14,7 @@ public class ArrayTestUtils {
 		if(str == null) {
 			throw new NullPointerException("Given str is null.");
 		}
-		str = str.replaceAll("\s+", "");
+		str = str.replaceAll("\\s+", "");
 		if(str.length() < 2) {
 			throw new IllegalArgumentException("The format of str is '[a,b,c]' where it starts with '[' and ends with ']'"
 					+ "and 'a' 'b' 'c' are int values and separated by a comma.");
@@ -71,7 +71,7 @@ public class ArrayTestUtils {
 		if(str == null) {
 			throw new NullPointerException("Given str is null.");
 		}
-		str = str.replaceAll("\s+", "");
+		str = str.replaceAll("\\s+", "");
 		if(str.length() < 2) {
 			throw new IllegalArgumentException("The format of str is '[a,b,c]' where it starts with '[' and ends with ']'"
 					+ "and 'a' 'b' 'c' are char values and separated by a comma.");
@@ -128,7 +128,7 @@ public class ArrayTestUtils {
 		if(str == null) {
 			throw new NullPointerException("Given str is null.");
 		}
-		str = str.replaceAll("\s+", "");
+		str = str.replaceAll("\\s+", "");
 		if(str.length() < 2) {
 			throw new IllegalArgumentException("The format of str is '[a,b,c]' where it starts with '[' and ends with ']'"
 					+ "and 'a' 'b' 'c' are String values and separated by a comma.");
