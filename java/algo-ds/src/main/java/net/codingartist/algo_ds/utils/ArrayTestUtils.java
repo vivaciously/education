@@ -10,6 +10,7 @@ public class ArrayTestUtils {
 		throw new AssertionError("no instantiability");
 	}
 	
+	
 	public static int[] strToIntArray(String str) {
 		if(str == null) {
 			throw new NullPointerException("Given str is null.");
